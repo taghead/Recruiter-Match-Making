@@ -1,0 +1,55 @@
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <title>Easy Recruit</title>
+  </head>
+
+  <body class="grey lighten-2">
+
+    <!-- NAVBAR -->
+    <nav class="z-depth-0 grey darken-4">
+      <div class="nav-wrapper container">
+        <!-- LEFT ALIGNED -->
+        <ul class="nav-mobile" class="left">
+          <li class="logo">
+            <img src="/img/logo.png" class="img-fluid" style="width: 64px; height: 64px;">
+          </li>
+          <li class="logged-in waves-effect waves-light" style="display: visible">
+            <a href="tours.html" class="lightgrey-text modal-trigger">LISTINGS</a>
+          </li>
+          <li class="admin-logged-in waves-effect waves-light" style="display: visible">
+            <a href="admin.html" class="lightgrey-text modal-trigger">ADMIN</a>
+          </li>
+        </ul>
+        <!-- RIGHT ALIGNED -->
+        <ul id="nav-mobile" class="right">
+          <li class="logged-in waves-effect waves-light" style="display: visible">
+            <a href="#" class="lightgrey-text modal-trigger" data-target="modal-create">Create</a>
+          </li>
+          <li class="logged-in waves-effect waves-light" style="display: visible">
+            <a href="#" class="lightgrey-text modal-trigger" data-target="modal-edit">Edit</a>
+          </li>
+          <li class="logged-in waves-effect waves-light" style="display: visible">
+            <a href="#" class="lightgrey-text modal-trigger" data-target="modal-account">Account</a>
+          </li>
+          <li class="logged-in waves-effect waves-light" style="display: visible">
+            <a href="#" class="lightgrey-text" id="logout">Logout</a>
+          </li>
+          <li class="logged-out waves-effect waves-light" style="display: visible">
+            <a href="#" class="lightgrey-text modal-trigger" data-target="modal-login">Login</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Materialize Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  </body>
+</html>
