@@ -1,5 +1,14 @@
 # Group-01-Match-Making-System-COSC2408-
 
+## Technologies Involved
+
+Cloud services:
+- [Google Cloud Platform](https://cloud.google.com/) (reCAPTCHA)
+- [Firebase](https://firebase.google.com/) (Database/Datastore, Authentication and Hosting)
+
+Frameworks:
+- [MaterializeCSS](https://materializecss.com/)
+
 ## Getting started for development:
 
 ### Setup Firebase CLI
@@ -7,12 +16,13 @@
 - Run `npm install -g firebase-tools`
 - Run `firebase login`
 
-You can now do cool commands with Firebase in the terminal (Make sure your in the projects root directory). 
-
 Noteable Commands:
-- `firebase deploy`
+- `firebase deploy` - Deploy web application to production
+- `firebase emulators:start` - Test web application locally [https://localhost:5000](https://localhost:5000)
 
-Read more here [Firebase instructions](docs/FIREBASE.md)
+*Make these commands are run in the projects root directory*
+
+Read more here [/docs/FIREBASE.md](/docs/FIREBASE.md)
 
 ### Git Workflow 
-Please read [Contributions](/CONTRIBUTIONS.md)
+Please read [/CONTRIBUTIONS.md](/CONTRIBUTIONS.md)
