@@ -19,54 +19,39 @@ exports.matchUsers = functions.https.onRequest(async (req, res) => {
         const res = userDoc.forEach((userDoc) => {
             const listings = admin.firestore().collection("listings").get().then((listingDoc) => {
                 const res = listingDoc.forEach((listingDoc) => {
-                    matchingTest(userDoc.data()['skills'], listingDoc.data()['skills'], [])
-                    console.log("OK")
+
+                    skillWanted = userDoc.data()['skills']
+                    skillAquire = listingDoc.data()['skills']
+                    skillsMatch = []
+
+                    for ( i in skillWanted ){
+                        for ( j in skillAquire ){
+                            if ( skillWanted[i] == skillAquire[j] ){
+                                skillsMatch.push(skillAquire[j])
+                            }
+                        }
+                    }
+
+                    var percentage = 0;
+                    percentage = (skillsMatch.length / skillWanted.length) * 100;
+                    console.log(skillsMatch.length)
+                    console.log("Job Specifications Skills: \t\t\t" + skillWanted);
+                    console.log("Employee relevent skills: \t\t\t" + skillAquire);
+                    console.log("Employee relevent skills (Removed dupes): \t" + skillsMatch);
+                
+                    if ( percentage >= 50 ) {
+                        console.log("\t\t\t\t\t\tMatch: " + percentage);
+                    }
+                    else {
+                        console.log("\t\t\t\t\t\tBad candidate: " + percentage);
+                    }
+                    
                 })
             })
         })
     })
     res.send("DONE")
   });
-
-function matchingTest(skillWanted , skillAquire , skillsMatch ){
-    var updatedSkillWanted = [];
-    for (var i = 0; i < skillWanted.length; i++) {
-        updatedSkillWanted[i] = skillWanted[i].toLowerCase();
-    }
-    updatedSkillWanted.sort();
-
-    var updatedSkillAquire = [];
-    for (var i = 0; i < skillAquire.length; i++) {
-        updatedSkillAquire[i] = skillAquire[i].toLowerCase();
-    }
-    updatedSkillAquire.sort();
-
-    for (a in updatedSkillWanted) {
-        for (b in updatedSkillAquire) {
-            if (a == b){
-                if (skillsMatch.includes(skillWanted[b]) == false) {
-                    skillsMatch.push(skillAquire[b]);
-                }
-            }
-        }
-    }
-
-    var percentage = 0;
-    percentage = (skillsMatch.length / updatedSkillWanted.length) * 100;
-
-    console.log("Job Specifications Skills: \t\t\t" + skillWanted);
-    console.log("Employee relevent skills: \t\t\t" + skillAquire);
-    console.log("Employee relevent skills (Removed dupes): \t" + skillsMatch);
-
-    if ( percentage >= 50 ) {
-        console.log("\t\t\t\t\t\tMatch: " + percentage);
-    }
-    else {
-        console.log("\t\t\t\t\t\tBad candidate: " + percentage);
-    }
-    return percentage;
-}
-
 
 // localhost:5001/group-01-match-making-co-78d4c/us-central1/testData
 exports.testData = functions.https.onRequest(async (req, res) => {
@@ -88,14 +73,72 @@ exports.testData = functions.https.onRequest(async (req, res) => {
         console.log("Document successfully written!");
     });
 
+    // Test user 3
+    var docData = {
+        email: "test3@test3.com",
+        skills: ["Javascript", "Angular", "NodeJs", "Deno"],
+    };
+    admin.firestore().collection("users").doc("3").set(docData).then(() => {
+        console.log("Document successfully written!");
+    });
+
+    // Test user 4
+    var docData = {
+        email: "test4@test4.com",
+        skills: ["Packing"],
+    };
+    admin.firestore().collection("users").doc("4").set(docData).then(() => {
+        console.log("Document successfully written!");
+    });
+
     // Test listing 1
     var docData = {
+        jobName: "Running friends",
         skills: ["Running", "Climbing", "Vaulting"],
+        candidates: []
     };
     admin.firestore().collection("listings").doc("1").set(docData).then(() => {
         console.log("Document successfully written!");
     });
 
+    // Test listing 2
+    var docData = {
+        jobName: "A Very Active Programmer",
+        skills: ["Running", "Climbing", "Vaulting", "Javascript", "Angular", "NodeJs", "Deno"],
+        candidates: []
+    };
+    admin.firestore().collection("listings").doc("2").set(docData).then(() => {
+        console.log("Document successfully written!");
+    });
 
+    // Test listing 3
+    var docData = {
+        jobName: "Active Programmer - Meblourne Central Safeway",
+        skills: ["Running", "NodeJs", "Deno"],
+        candidates: []
+    };
+    admin.firestore().collection("listings").doc("3").set(docData).then(() => {
+        console.log("Document successfully written!");
+    });
+    
+    // Test listing 4
+    var docData = {
+        jobName: "General Labour - Box Hill",
+        skills: ["RF Scanning", "Mathematics", "Hard Labour"],
+        candidates: []
+    };
+    admin.firestore().collection("listings").doc("4").set(docData).then(() => {
+        console.log("Document successfully written!");
+    });
+
+    // Test listing 5
+    var docData = {
+        jobName: "Packing",
+        skills: ["Packing"],
+        candidates: []
+    };
+    admin.firestore().collection("listings").doc("5").set(docData).then(() => {
+        console.log("Document successfully written!");
+    });
     res.send("Test data added")
 })
