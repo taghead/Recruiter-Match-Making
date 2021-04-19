@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/Group-01-Match-Making-System-COSC2408/Group-01-Match-Making-System-COSC2408-#readme",
   "devDependencies": {
+    "firebase-admin": "^9.6.0",
     "firebase-tools": "^9.10.0"
   }
 }

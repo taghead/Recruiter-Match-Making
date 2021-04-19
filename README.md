@@ -13,7 +13,7 @@ Frameworks:
 
 ### Setup Firebase CLI
 - Install [NodeJS LTS](https://nodejs.org/en/download/)
-- Run `npm install -g firebase-tools`
+- Run `npm install -g firebase-tools firebase-admin`
 - Run `firebase login`
 
 Noteable Commands:
