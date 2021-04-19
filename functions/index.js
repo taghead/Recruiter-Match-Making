@@ -15,10 +15,13 @@ admin.initializeApp();
 
 // localhost:5001/group-01-match-making-co-78d4c/us-central1/matchUsers
 exports.matchUsers = functions.https.onRequest(async (req, res) => {
-    const users = await admin.firestore().collection("users").get().then((userDoc) => {
-        const res = userDoc.forEach((userDoc) => {
-            const listings = admin.firestore().collection("listings").get().then((listingDoc) => {
-                const res = listingDoc.forEach((listingDoc) => {
+    const listings = await admin.firestore().collection("listings").get().then((listingDoc) => {
+        const res = listingDoc.forEach((listingDoc) => {
+            const users =  admin.firestore().collection("users").get().then((userDoc) => {
+
+                let list = []
+
+                const res = userDoc.forEach((userDoc) => {
 
                     skillWanted = userDoc.data()['skills']
                     skillAquire = listingDoc.data()['skills']
@@ -34,18 +37,20 @@ exports.matchUsers = functions.https.onRequest(async (req, res) => {
 
                     var percentage = 0;
                     percentage = (skillsMatch.length / skillWanted.length) * 100;
-                    console.log(skillsMatch.length)
-                    console.log("Job Specifications Skills: \t\t\t" + skillWanted);
-                    console.log("Employee relevent skills: \t\t\t" + skillAquire);
-                    console.log("Employee relevent skills (Removed dupes): \t" + skillsMatch);
-                
+
                     if ( percentage >= 50 ) {
                         console.log("\t\t\t\t\t\tMatch: " + percentage);
+                        list.push(userDoc.data()['email'])
+                        
                     }
                     else {
                         console.log("\t\t\t\t\t\tBad candidate: " + percentage);
                     }
-                    
+                })
+                let docRef = admin.firestore().collection("listings").doc(listingDoc.id);
+                console.log(list)
+                docRef.update({
+                    candidates: list
                 })
             })
         })
