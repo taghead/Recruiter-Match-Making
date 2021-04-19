@@ -7,7 +7,9 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "firebase emulators:start"
+    "test": "firebase emulators:start",
+    "deploy": "firebase deploy",
+    "login": "firebase login"
   },
   "repository": {
     "type": "git",
@@ -21,6 +23,7 @@
   "homepage": "https://github.com/Group-01-Match-Making-System-COSC2408/Group-01-Match-Making-System-COSC2408-#readme",
   "devDependencies": {
     "firebase-admin": "^9.6.0",
+    "firebase-functions": "^3.13.2",
     "firebase-tools": "^9.10.0"
   }
 }
