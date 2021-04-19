@@ -13,47 +13,12 @@ admin.initializeApp();
 //   response.send("Hello from Firebase!");
 // });
 
+// localhost:5001/group-01-match-making-co-78d4c/us-central1/matchUsers
 exports.matchUsers = functions.https.onRequest(async (req, res) => {
-    // const userCollectionRef = await admin.firestore().collection("users").then((doc)  => {
-    //     const response = data.forEach((doc) => {
-    //         console.log("OK");
-    //     })
-    // })
-
-    const users = await admin.firestore().collection("users").get().then((doc) => {
-        const res = doc.forEach((doc) => {
-            console.log("OK")
+    const users = await admin.firestore().collection("users").get().then((userDoc) => {
+        const res = userDoc.forEach((userDoc) => {
+            console.log(userDoc.data()['skills'])
         })
     })
-
-    res.send("Hello from Firebase!");
-    
-    // const listingCollectionRef = admin.firestore().collection("listings").then((listing)  => {
-    //     console.log(user);
-    //     console.log(listing);
-    // })
-
-    // const yourData = await   
-    // admin.firestore().collection(userCollectionRef).get().then((doc) => {
-    //    const temp = \[\]
-    //    const response = data.forEach((doc) => {
-    //      temp.push(doc.data())
-    //   })
-    //   return temp
-    // })
-
-    // userDocRef.get().then((doc) => {
-    //     if (doc.exists) {
-    //         console.log("Document data:", doc.data());
-    //     } else {
-    //         // doc.data() will be undefined in this case
-    //         console.log("No such document!");
-    //     }
-    // }).catch((error) => {
-    //     console.log("Error getting document:", error);
-    // }); 
-
-    // userDocRef.where("skills", "array-contains", "");
-    
-    // res.json({result: `${JSON.stringify(readResult)}`});
+    res.send("Matches Updates")
   });
