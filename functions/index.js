@@ -53,6 +53,10 @@ exports.matchUsers = functions.https.onRequest(async (req, res) => {
     res.send("Job listings have been matched with appropriate candidates")
   });
 
+  exports.getJobCandidates = functions.https.onRequest(async (req, res) => {
+    // Print specific job listings candidates here
+  }
+
 // localhost:5001/group-01-match-making-co-78d4c/us-central1/testData
 // exports.testData = functions.https.onRequest(async (req, res) => {
 //     // Test user 1
