@@ -25,12 +25,21 @@ This will generate the development environment for Firebase Hosting. These comma
 **You are not required to read this section. It is already been generated in the initial commit, however for documentation and awareness purposes feel free to read.**
 
 1. Initialize the firebase project using `firebase init` 
-2. Using the arrow keys navigate to `( ) Hosting: Configure and deploy Firebase Hosting sites` press space to select it then enter to confirm.
+2. Using the arrow keys navigate to the following and press space to enable them.
+   1. (*) Firestore: Deploy rules and create indexes for Firestore
+   2. (*) Functions: Configure and deploy Cloud Functions
+   3. (*) Hosting: Configure and deploy Firebase Hosting sites
+   4. (*) Emulators: Set up local emulators for Firebase features
 3. We will be using a existing GCP/Firebase project so select `> Use an existing project`.
 4. Select the project `> group-01-match-making-co-78d4c (group-01-match-making-cosc2408)` by using the arrow keys then press enter.
-5. You will be promted about a `public directory` and since we will be using `/public` so just press enter.
-6. It will ask if the app is a single page application. It is so yress Y and then enter to confirm.
-7. Finally it will ask `Set up automatic builds and deploys with GitHub?` just press enter (N).
+5. For firebase firestore setup use the default `firestore.rules` and `firestore.indexes.json`.
+6. For firebase functions select `Javascript`, set enforce style to `N` and select `Y` for install dependencies.
+7. For firebase hosting set the public directory to `/public`.
+   1. It will also ask if the app is a single page application. It is so press Y and then enter to confirm.
+   2. Finally it will ask `Set up automatic builds and deploys with GitHub?` just press enter (N).
+8. For emulators select `Authentication`, `Functions`, `Firestore`, and `Hosting`. 
+   1. Make sure to use the default port (9099, 5001, 8080 and 5000).
+   2. Select `Y` to enable Emulator UI. Set it to use any port (leave empty) and press `N` for downloading the emulators now.
    
 ## Deploying to Firebase
 This should only be used on production releases. Refer to [Local Testing](#local-testing) for non-production testing.
