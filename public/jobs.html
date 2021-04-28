@@ -1,0 +1,219 @@
+<!-- EMPLOYERS PAGE -->
+<!--
+  REQUIRES FURTHER WORK WHEN ADDING FUNCTIONS
+-->
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href = "https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <title>Easy Recruit</title>
+  </head>
+
+  <body class="grey lighten-2">
+    
+    <!-- NAVBAR -->
+    <nav class="z-depth-0 grey darken-4">
+      <div class="nav-wrapper container">
+        
+        <!-- LEFT ALIGNED -->
+        <ul class="nav-mobile" class="left">
+          <li class="logo">
+            <a href="#" class="btn active teal lighten-1 hide-on-small"><i class="material-icons">business_center</i></a>
+          </li>
+          <li class="admin-logged-in waves-effect waves-light" style="display: none">
+            <a href="admin_users.html" class="lightgrey-text modal-trigger">USERS</a>
+          </li>
+          <li class="admin-logged-in waves-effect waves-light" style="display: none">
+            <a href="admin_jobs.html" class="lightgrey-text modal-trigger">JOBS</a>
+          </li>
+        </ul>
+
+        <!-- RIGHT ALIGNED -->
+        <ul id="nav-mobile" class="right">
+          <li class="logged-in waves-effect waves-light" style="display: ">
+            <a href="#" class="lightgrey-text modal-trigger" data-target="modal-create">Create</a>
+          </li>
+          <li class="logged-in waves-effect waves-light" style="display: ">
+            <a href="#" class="lightgrey-text modal-trigger" data-target="modal-edit">Edit</a>
+          </li>
+          <li class="logged-in waves-effect waves-light" style="display: ">
+            <a href="#" class="lightgrey-text modal-trigger" data-target="modal-account">Account</a>
+          </li>
+          <li class="logged-in waves-effect waves-light" style="display: ">
+            <a href="#" class="lightgrey-text" id="logout">Logout</a>
+          </li>
+          <li class="logged-out waves-effect waves-light" style="display: ">
+            <a href="#" class="lightgrey-text modal-trigger" data-target="modal-login">Login</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Create Modal -->
+    <div id="modal-create" class="modal">
+      <div class="modal-content">
+        <h4>Create new job</h4><br />
+        <form id="create-job-form">
+          <table>
+            <tr> <!-- Job Name -->
+              <th> Job Name: </th><td>
+                <div class="left container input-field">
+                  <input type="text" id="job-name" placeholder="Name" required>
+                </div>
+              </td>
+            </tr>
+            <tr> <!-- Job Description -->
+              <th> Job Description: </th><td>
+                <div class="left container input-field">
+                  <textarea id="description" class="materialize-textarea"></textarea>
+                </div>
+              </td>
+            </tr>
+            <tr> <!-- Job Skills -->
+              <th> Job Skills: </th><td>
+                <div class="left container">
+                  <select class="browser-default" id="skill-one">
+                    <option value="" disabled selected>Select Skill</option>
+                    <option value="">No Skill</option>
+                    <!-- Content loaded by Javascript -->
+                  </select>
+                </div>
+                <!-- 
+                  Going to keep this clear as there may be a better solution in the
+                  function. If we want an "unlimited" number of skills we can use a
+                  function to inject more html that contains a list of skills. Only
+                  issue I can see is potentially loading in "unlimited" skills for
+                  editing. This would require loops to load and save skills for edits
+                -->
+              </td>
+            </tr>
+          </table><br />
+          <button class="btn teal lighten-1 z-depth-0 wave-effect waves-light right">Create
+            <i class="material-icons right">add</i>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="modal-edit" class="modal">
+      <div class="modal-content">
+        <h4>Edit existing job</h4>
+
+        <!-- Load list of jobs -->
+        <form id="edit-job-list">
+          <select class="browser-default" id="tour-edit-list">
+            <!-- Content loaded by Javascript -->
+
+            <!-- 
+              This area could also have a better solution as well
+            -->
+          </select>
+        </form><br />
+
+        <!-- Edit job details -->
+        <form id="edit-job-form">
+          <table>
+            <tr> <!-- Job Name -->
+              <th> Job Name: </th><td>
+                <div class="left container input-field">
+                  <input type="text" id="job-name" placeholder="Name" required>
+                </div>
+              </td>
+            </tr>
+            <tr> <!-- Job Description -->
+              <th> Job Description: </th><td>
+                <div class="left container input-field">
+                  <textarea id="description" class="materialize-textarea"></textarea>
+                </div>
+              </td>
+            </tr>
+            <tr> <!-- Job Skills -->
+              <th> Job Skills: </th><td>
+                <div class="left container">
+                  <select class="browser-default" id="skill-one">
+                    <option value="" disabled selected>Select Skill</option>
+                    <option value="">No Skill</option>
+                    <!-- Content loaded by Javascript -->
+                  </select>
+                </div>
+                <!-- 
+                  Going to keep this clear as there may be a better solution in the
+                  function. If we want an "unlimited" number of skills we can use a
+                  function to inject more html that contains a list of skills. Only
+                  issue I can see is potentially loading in "unlimited" skills for
+                  editing. This would require loops to load and save skills for edits
+                -->
+              </td>
+            </tr>
+          </table>
+        </form><br />
+        <!-- Edit tour button-->
+        <button class="btn orange darken-2 z-depth-0 waves-effect waves-light right" onclick="editJob()"> Edit 
+          <i class="material-icons right">edit</i>
+        </button>
+        <!-- Delete tour button -->
+        <button class="btn red darken-2 z-depth-0 waves-effect waves-light" onclick="deleteJob()"> Delete 
+          <i class="material-icons right">delete</i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Account Modal -->
+    <div id="modal-account" class="modal">
+      <div class="modal-content center-align">
+        <h4>Account Details</h4>
+        <div class="account-details container">
+          <table>
+            <tr>
+              <th> Email: </th><td id="account-email">placeholder-email</td>
+              <th> Role: </th><td id="account-role">placeholder-role</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="modal-login" class="modal">
+      <div class="modal-content">
+        <h4>Login</h4><br /> <!-- Login Form -->
+        <form id="login-form">
+          <div class="input-field"> <!-- Email -->
+            <input type="email" id="login-email" required />
+            <label for="login-email">Email Address</label>
+          </div>
+          <div class="input-field"> <!-- Password -->
+            <input type="password" id="login-password" required />
+            <label for="login-password" data-error="Email or password is incorrect!">Password</label>
+          </div>
+          <button class="btn green darken-2 z-depth-0 waves-effect waves-light">Login</button><span id="invalid">Incorrect email or password!</span>
+        </form>
+      </div>
+    </div>
+
+    <!-- Job List -->
+    <div class="container" style="margin-top: 40px;">
+      <ul class="collapsible z-depth-0" id="job-list" style="border: none;">
+        <!-- Content loaded by JavaScript -->
+        <div class="progress"> <!-- Loading bar -->
+          <div class="indeterminate"></div>
+        </div>
+      </ul>
+    </div>
+    
+    <!--
+      Initialize Scripts
+      Initialize Firebase
+      Matierlize Scripts
+      Custom Scripts
+    -->
+  </body>
+</html>
