@@ -1,0 +1,165 @@
+<!-- ADMIN PAGE - JOBS -->
+<!--
+  REQUIRES FURTHER WORK WHEN ADDING FUNCTIONS
+-->
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href = "https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <title>Easy Recruit</title>
+  </head>
+
+  <body class="grey lighten-2">
+    
+    <!-- NAVBAR -->
+    <nav class="z-depth-0 grey darken-4">
+      <div class="nav-wrapper container">
+        
+        <!-- LEFT ALIGNED -->
+        <ul class="nav-mobile" class="left">
+          <li class="logo">
+            <a href="#" class="btn active teal lighten-1 hide-on-small"><i class="material-icons">business_center</i></a>
+          </li>
+          <li class="admin-logged-in waves-effect waves-light" style="display: " > <!-- REPLACE WITH NONE-->
+            <a href="admin_users.html" class="lightgrey-text modal-trigger">USERS</a>
+          </li>
+          <li class="admin-logged-in waves-effect waves-light" style="display: " >
+            <a href="admin_jobs.html" class="lightgrey-text modal-trigger">JOBS</a>
+          </li>
+        </ul>
+
+        <!-- RIGHT ALIGNED -->
+        <ul id="nav-mobile" class="right">
+          <li class="logged-in waves-effect waves-light" style="display: ">
+            <a href="#create" class="lightgrey-text modal-trigger" data-target="modal-create">Create</a>
+          </li>
+          <li class="logged-in waves-effect waves-light" style="display: ">
+            <a href="#edit" class="lightgrey-text modal-trigger" data-target="modal-edit">Edit</a>
+          </li>
+          <li class="logged-in waves-effect waves-light" style="display: ">
+            <a href="#account" class="lightgrey-text modal-trigger" data-target="modal-account">Account</a>
+          </li>
+          <li class="logged-in waves-effect waves-light" style="display: ">
+            <a href="#logout" class="lightgrey-text" id="logout">Logout</a>
+          </li>
+          <li class="logged-out waves-effect waves-light" style="display: ">
+            <a href="#login" class="lightgrey-text modal-trigger" data-target="modal-login">Login</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Create Modal -->
+    <div id="modal-create" class="modal">
+      <div class="modal-content">
+        <h4>Create new user</h4><br />
+        <form id="create-user-form">
+          <table>
+            <tr> <!-- User Email -->
+              <th> Email: </th><td>
+                <div class="left container input-field">
+                  <input type="email" id="user-email" required />
+                </div>
+              </td>
+            </tr>
+            <tr> <!-- User Password -->
+              <th> Password: </th><td>
+                <div class="left container input-field">
+                  <input type="password" id="user-password" required />
+                </div>
+              </td>
+            </tr>
+            <tr> <!-- User Role --> <!-- THIS MIGHT NOT BE NEEDED - AUTO ASSIGN THE ROLES IN JS -->
+              <th> Role: </th><td>
+                <div class="left container">
+                  <select class="browser-default" id="user-role">
+                    <option value="assistant" selected>Assistant</option>
+                    <option value="admin">Admin</option>
+                  </select>
+                </div>
+              </td>
+            </tr>
+          </table><br /> <!-- Create button -->
+          <span id="invalid-user"></span><button class="btn green darken-2 z-depth-0 waves-effect waves-light right">Create
+            <i class="material-icons right">add</i>
+          </button><br />
+        </form>
+      </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="modal-edit" class="modal">
+      <div class="modal-content">
+        <h4>Editing existing user</h4> <br />
+
+        <!-- Load list of users -->
+        <form id="edit-user-list">
+          <select class="browser-default" id="user-edit-list">
+            <!-- Content loaded by JavaScript -->
+          </select>
+        </form><br />
+
+        <button class="btn red darken-2 z-depth-0 waves-effect waves-light" id="deleteButton" onclick="deleteUser()"> Delete 
+          <i class="material-icons right">delete</i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Account Modal -->
+    <div id="modal-account" class="modal">
+      <div class="modal-content center-align">
+        <h4>Account Details</h4>
+        <div class="account-details container">
+          <table>
+            <tr>
+              <th> Email: </th><td id="account-email">placeholder-email</td>
+              <th> Role: </th><td id="account-role">placeholder-role</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="modal-login" class="modal">
+      <div class="modal-content">
+        <h4>Login</h4><br /> <!-- Login Form -->
+        <form id="login-form">
+          <div class="input-field"> <!-- Email -->
+            <input type="email" id="login-email" required />
+            <label for="login-email">Email Address</label>
+          </div>
+          <div class="input-field"> <!-- Password -->
+            <input type="password" id="login-password" required />
+            <label for="login-password">Password</label>
+          </div>
+          <button class="btn green darken-2 z-depth-0 waves-effect waves-light">Login</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Job List -->
+    <div class="container" style="margin-top: 40px;">
+      <ul class="collapsible z-depth-0" id="job-list" style="border: none;">
+        <!-- Content loaded by JavaScript -->
+        <div class="progress"> <!-- Loading bar -->
+          <div class="indeterminate"></div>
+        </div>
+      </ul>
+    </div>
+    
+      <!--
+        Initialize Scripts
+        Initialize Firebase
+        Matierlize Scripts
+        Custom Scripts
+      -->
+  </body>
+</html>

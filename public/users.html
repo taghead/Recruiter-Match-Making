@@ -1,0 +1,73 @@
+<!-- USERS PAGE -->
+<!--
+  REQUIRES FURTHER WORK WHEN ADDING FUNCTIONS
+-->
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href = "https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <title>Easy Recruit</title>
+  </head>
+
+  <body class="grey lighten-2">
+    
+    <!-- NAVBAR -->
+    <nav class="z-depth-0 grey darken-4">
+      <div class="nav-wrapper container">
+        
+        <!-- LEFT ALIGNED -->
+        <ul class="nav-mobile" class="left">
+          <li class="logo">
+            <a href="#" class="btn active teal lighten-1 hide-on-small"><i class="material-icons">business_center</i></a>
+          </li>
+          <li class="admin-logged-in waves-effect waves-light" style="display: none" >
+            <a href="admin_users.html" class="lightgrey-text modal-trigger">USERS</a>
+          </li>
+          <li class="admin-logged-in waves-effect waves-light" style="display: none" >
+            <a href="admin_jobs.html" class="lightgrey-text modal-trigger">JOBS</a>
+          </li>
+        </ul>
+
+        <!-- RIGHT ALIGNED -->
+        <ul id="nav-mobile" class="right">
+          <li class="logged-in waves-effect waves-light" style="display: ">
+            <a href="#" class="lightgrey-text modal-trigger" data-target="modal-account">Account</a>
+          </li>
+          <li class="logged-in waves-effect waves-light" style="display: ">
+            <a href="#" class="lightgrey-text" id="logout">Logout</a>
+          </li>
+          <li class="logged-out waves-effect waves-light" style="display: ">
+            <a href="#" class="lightgrey-text modal-trigger" data-target="modal-login">Login</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Account Modal -->
+    <div id="modal-account" class="modal">
+      <div class="modal-content center-align">
+        <h4>Account Details</h4>
+        <div class="account-details container">
+          <table>
+            <tr>
+              <th> Email: </th><td id="account-email">placeholder-email</td>
+              <th> Role: </th><td id="account-role">placeholder-role</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- User Details -->
+    <div class="container" style="margin-top: 40px;">
+      <!-- Content loaded by Javascript -->
+    </div>
+  </body>
+</html>
