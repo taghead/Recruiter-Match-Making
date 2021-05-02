@@ -52,8 +52,27 @@ exports.matchUsers = functions.https.onRequest(async (req, res) => {
     })
     res.send("Job listings have been matched with appropriate candidates")
   });
+/*
+This can be called through a post request. Through windows you may test this using powershell.
 
-// localhost:5001/group-01-match-making-co-78d4c/us-central1/testData
+Invoke-WebRequest -Uri http://localhost:5001/group-01-match-making-cosc2408/us-central1/getJobCandidates -Method POST -Body @{id=1}
+*/
+  exports.getJobCandidates = functions.https.onRequest(async (req, res) => {
+    let data;
+    exports.date = functions.https.onRequest((req, res) => {
+    if ( req.body.id ){
+        let candidatesRef = admin.firestore().collection('listings').doc(req.body.id);
+        const doc = await candidatesRef.get();
+        if (!doc.exists) {
+            data = "No documents";
+            } else {
+            data = doc.data();
+            }
+    }
+    res.send(data)
+})
+
+// // localhost:5001/group-01-match-making-co-78d4c/us-central1/testData
 // exports.testData = functions.https.onRequest(async (req, res) => {
 //     // Test user 1
 //     var docData = {
