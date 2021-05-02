@@ -78,20 +78,18 @@ exports.matchUsers = functions.https.onRequest(async (req, res) => {
 //     res.end()
 // })
 
-exports.getJobCandidates = functions.https.onCall((data, context) => {
-    console.log(data.id);
+exports.getJobCandidates = functions.https.onCall( async (data, context) => {
     let candidates;
     if ( data.id ){
         let candidatesRef = admin.firestore().collection('listings').doc("1");
-        const doc = candidatesRef.get();
+        const doc = await candidatesRef.get();
         if (!doc.exists) {
             data = "No documents";
         }
         else {
             candidates = doc.data();
         }
-        console.log(candidates)
-        return 0
+        return candidates
     }
   });
 
