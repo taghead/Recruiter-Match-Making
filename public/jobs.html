@@ -227,14 +227,6 @@
     <script src="js/index.js"></script>
 
     <script>
-    function getJobCandidatesByDocumentID(id){
-      var getJobCandidates = firebase.functions().httpsCallable('getJobCandidates');
-      getJobCandidates({ id: "2" })
-        .then((result) => {
-          console.log(result.data);
-        });
-    }
-
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
             const users =  firebase.firestore().collection("users").get().then((userDoc) => {
@@ -242,7 +234,17 @@
                 if (userDoc.data()['email'] == user.email){
                   
                   for ( i in userDoc.data()['listings'] ){
-                    getJobCandidatesByDocumentID(i)
+                    var getJobCandidates = firebase.functions().httpsCallable('getJobCandidates');
+                    getJobCandidates({ id: userDoc.data()['listings'][i] }).then((result) => {
+                      let candidatesString = "Job listing candidates: ";
+                      for ( j in result.data){
+                        candidatesString += result.data[j]
+                        if ( j < result.data.length-1 ) {
+                          candidatesString += ", "
+                        }
+                      }
+                      console.log(candidatesString)
+                    });
                   }
 
                 }
