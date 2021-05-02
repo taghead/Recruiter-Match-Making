@@ -56,6 +56,7 @@ exports.matchUsers = functions.https.onRequest(async (req, res) => {
   exports.getJobCandidates = functions.https.onRequest(async (req, res) => {
     const candidatesRef =admin.firestore().collection('listings').doc('1');
     const doc = await candidatesRef.get();
+    let data;
     if (!doc.exists) {
         data = "No documents";
         } else {
