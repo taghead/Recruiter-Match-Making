@@ -8,6 +8,9 @@ appId: "1:784245292062:web:1595179e05c02b90c3020f",
 measurementId: "G-63R4C1NDKD"
 };
 firebase.initializeApp(firebaseConfig);
+// firebase.auth().useEmulator("http://localhost:9099");
+// firebase.firestore().useEmulator("localhost", 8080);
+
 
 // OPEN SOURCE CODE FROM https://github.com/firebase/quickstart-js/blob/master/auth/email-password.html
 
@@ -17,6 +20,7 @@ firebase.initializeApp(firebaseConfig);
      function toggleSignIn() {
         if (firebase.auth().currentUser) {
           firebase.auth().signOut();
+          
         } else {
           var email = document.getElementById('email').value;
           var password = document.getElementById('password').value;
@@ -51,6 +55,7 @@ firebase.initializeApp(firebaseConfig);
       function handleSignUp() {
         var email = document.getElementById('email').value;
         var password = document.getElementById('password').value;
+        var role = document.getElementById('role').value;
         if (email.length < 4) {
           alert('Please enter an email address.');
           return;
@@ -59,8 +64,21 @@ firebase.initializeApp(firebaseConfig);
           alert('Please enter a password.');
           return;
         }
+        if (role == "employee" || role != "employer") {
+          
+        }
+        else {
+          alert('Please select a role from the drop down list');
+          return;
+        }
         // Create user with email and pass.
-        firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+        firebase.auth().createUserWithEmailAndPassword(email, password).then(function(firebaseUser){
+          // Create firestore entry for user
+          firebase.firestore().collection('users').add({
+            email: email,
+            role: role
+          });
+        }).catch(function(error) {
           // Handle Errors here.
           var errorCode = error.code;
           var errorMessage = error.message;
