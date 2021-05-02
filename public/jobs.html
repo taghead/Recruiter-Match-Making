@@ -210,7 +210,7 @@
     </div>
 
 
-    Candidates for job are: 
+    Candidates for job are: <p id="candidates"></p>
     
     <!--
       Initialize Scripts
@@ -233,17 +233,41 @@
               const res = userDoc.forEach((userDoc) => {
                 if (userDoc.data()['email'] == user.email){
                   
+                  
                   for ( i in userDoc.data()['listings'] ){
                     var getJobCandidates = firebase.functions().httpsCallable('getJobCandidates');
                     getJobCandidates({ id: userDoc.data()['listings'][i] }).then((result) => {
-                      let candidatesString = "Job listing candidates: ";
-                      for ( j in result.data){
-                        candidatesString += result.data[j]
-                        if ( j < result.data.length-1 ) {
-                          candidatesString += ", "
-                        }
-                      }
-                      console.log(candidatesString)
+                      let candidatesString;
+                      let candidatesList;
+                      const listings =  firebase.firestore().collection("listings").get().then((listingDoc) => {
+                        const res = listingDoc.forEach((listingDoc) => {
+                          if ( listingDoc.id == userDoc.data()['listings'][i] ){
+                            if (!candidatesString){
+                              candidatesString = listingDoc.data()['jobName']+": "
+                            }
+                            else 
+                            {
+                              candidatesString += listingDoc.data()['jobName']+": "
+                            }
+                            for ( j in result.data){
+                              if (!candidatesString){
+                                candidatesString = result.data[j]
+                              } else {
+                                candidatesString += result.data[j]
+                              }
+                              if ( j < result.data.length-1 ) {
+                                candidatesString += ", "
+                              }
+                              if (!candidatesList){
+                                candidatesList="<li>"+candidatesString+"</li>"
+                              } else {
+                                candidatesList+="<li>"+candidatesString+"</li>"
+                              }
+                            }
+                            document.getElementById("candidates").innerHTML = candidatesList;
+                          }
+                        })
+                      })
                     });
                   }
 
