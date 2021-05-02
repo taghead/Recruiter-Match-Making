@@ -57,11 +57,11 @@ exports.matchUsers = functions.https.onRequest(async (req, res) => {
     const candidatesRef =admin.firestore().collection('listings').doc('1');
     const doc = await candidatesRef.get();
     if (!doc.exists) {
-        res.send('No such document!');
+        res.write('No such document!');
         } else {
-        res.send(doc.data());
+        res.write(doc.data());
         }
-    res.send("Job candidates obtained!");
+    res.write("Job candidates obtained!");
   })
 
 // localhost:5001/group-01-match-making-co-78d4c/us-central1/testData
