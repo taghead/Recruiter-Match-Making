@@ -1,5 +1,3 @@
-const cors = require('cors')({origin: true});
-
 // The Cloud Functions for Firebase SDK to create Cloud Functions and setup triggers.
 const functions = require('firebase-functions');
 
@@ -54,40 +52,34 @@ exports.matchUsers = functions.https.onRequest(async (req, res) => {
     })
     res.send("Job listings have been matched with appropriate candidates")
   });
-  /*
-   This can be called through a post request. Through windows you may test this using powershell.
-   
-   Invoke-WebRequest -Uri http://localhost:5001/group-01-match-making-cosc2408/us-central1/getJobCandidates -Method POST -Body @{id=1}
-  */
-//    exports.getJobCandidates = functions.https.onRequest(async (req, res) => {
-//     let data;
-//     if ( req.body.id ){
-//         let candidatesRef = admin.firestore().collection('listings').doc(req.body.id);
-//         const doc = await candidatesRef.get();
-//         if (!doc.exists) {
-//             data = "No documents";
-//             } else {
-//             data = doc.data();
-//             }
-//     }
-//     cors(req, res, () => {
-//         console.log(data)
-//         res.set('Access-Control-Allow-Origin');
-//         res.send(data)
-//     })
-//     res.end()
-// })
 
+
+
+
+/*
+This can be called through the following example html
+
+<script src="https://www.gstatic.com/firebasejs/8.4.3/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-functions.js"></script>
+
+<script>
+    var getJobCandidates = firebase.functions().httpsCallable('getJobCandidates');
+    getJobCandidates({ id: "2" })
+      .then((result) => {
+        console.log(result.data);
+      });
+</script>
+*/
 exports.getJobCandidates = functions.https.onCall( async (data, context) => {
     let candidates;
     if ( data.id ){
-        let candidatesRef = admin.firestore().collection('listings').doc("1");
+        let candidatesRef = admin.firestore().collection('listings').doc(data.id);
         const doc = await candidatesRef.get();
         if (!doc.exists) {
             data = "No documents";
         }
         else {
-            candidates = doc.data();
+            candidates = doc.data().candidates;
         }
         return candidates
     }

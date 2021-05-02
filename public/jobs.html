@@ -227,16 +227,10 @@
     <script src="js/index.js"></script>
 
     <script>
-    // var functions = firebase.functions()
-    // var addMessage = firebase.functions().httpsCallable('getJobCandidates');
-    // addMessage({ id: 1 }).then((result) => {
-    //   var sanitizedMessage = result.data.text;
-    // });
     var getJobCandidates = firebase.functions().httpsCallable('getJobCandidates');
-    getJobCandidates({ id: 1 })
+    getJobCandidates({ id: "2" })
       .then((result) => {
-        // Read result of the Cloud Function.
-        var sanitizedMessage = result.data.text;
+        console.log(result.data);
       });
     </script>
   </body>
