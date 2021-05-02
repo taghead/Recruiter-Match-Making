@@ -208,6 +208,9 @@
         </div>
       </ul>
     </div>
+
+
+    Candidates for job are: 
     
     <!--
       Initialize Scripts
@@ -215,5 +218,26 @@
       Matierlize Scripts
       Custom Scripts
     -->
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-functions.js"></script>
+    <script src="js/index.js"></script>
+
+    <script>
+    // var functions = firebase.functions()
+    // var addMessage = firebase.functions().httpsCallable('getJobCandidates');
+    // addMessage({ id: 1 }).then((result) => {
+    //   var sanitizedMessage = result.data.text;
+    // });
+    var getJobCandidates = firebase.functions().httpsCallable('getJobCandidates');
+    getJobCandidates({ id: 1 })
+      .then((result) => {
+        // Read result of the Cloud Function.
+        var sanitizedMessage = result.data.text;
+      });
+    </script>
   </body>
 </html>
