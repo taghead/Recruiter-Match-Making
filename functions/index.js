@@ -54,14 +54,17 @@ exports.matchUsers = functions.https.onRequest(async (req, res) => {
   });
 
   exports.getJobCandidates = functions.https.onRequest(async (req, res) => {
-    const candidatesRef =admin.firestore().collection('listings').doc('1');
-    const doc = await candidatesRef.get();
     let data;
-    if (!doc.exists) {
-        data = "No documents";
-        } else {
-        data = doc.data();
-        }
+    exports.date = functions.https.onRequest((req, res) => {
+    if ( req.body.id ){
+        let candidatesRef = admin.firestore().collection('listings').doc(req.body.id);
+        const doc = await candidatesRef.get();
+        if (!doc.exists) {
+            data = "No documents";
+            } else {
+            data = doc.data();
+            }
+    }
     res.send(data)
 })
 
