@@ -59,23 +59,41 @@ exports.matchUsers = functions.https.onRequest(async (req, res) => {
    
    Invoke-WebRequest -Uri http://localhost:5001/group-01-match-making-cosc2408/us-central1/getJobCandidates -Method POST -Body @{id=1}
   */
-   exports.getJobCandidates = functions.https.onRequest(async (req, res) => {
-    let data;
-    if ( req.body.id ){
-        let candidatesRef = admin.firestore().collection('listings').doc(req.body.id);
-        const doc = await candidatesRef.get();
+//    exports.getJobCandidates = functions.https.onRequest(async (req, res) => {
+//     let data;
+//     if ( req.body.id ){
+//         let candidatesRef = admin.firestore().collection('listings').doc(req.body.id);
+//         const doc = await candidatesRef.get();
+//         if (!doc.exists) {
+//             data = "No documents";
+//             } else {
+//             data = doc.data();
+//             }
+//     }
+//     cors(req, res, () => {
+//         console.log(data)
+//         res.set('Access-Control-Allow-Origin');
+//         res.send(data)
+//     })
+//     res.end()
+// })
+
+exports.getJobCandidates = functions.https.onCall((data, context) => {
+    console.log(data.id);
+    let candidates;
+    if ( data.id ){
+        let candidatesRef = admin.firestore().collection('listings').doc("1");
+        const doc = candidatesRef.get();
         if (!doc.exists) {
             data = "No documents";
-            } else {
-            data = doc.data();
-            }
+        }
+        else {
+            candidates = doc.data();
+        }
+        console.log(candidates)
+        return 0
     }
-    cors(req, res, async () => {
-        res.set('Access-Control-Allow-Origin');
-        res.send(data)
-    })
-    res.end()
-})
+  });
 
 // // localhost:5001/group-01-match-making-co-78d4c/us-central1/testData
 exports.testData = functions.https.onRequest(async (req, res) => {
