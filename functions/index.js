@@ -85,6 +85,21 @@ exports.getJobCandidates = functions.https.onCall( async (data, context) => {
     }
   });
 
+  exports.getJobListing = functions.https.onCall( async (data, context) => {
+    let listing;
+    if ( data.id ){
+        let listingRef = admin.firestore().collection('listings').doc(data.id);
+        const doc = await listingRef.get();
+        if (!doc.exists) {
+            data = "No documents";
+        }
+        else {
+            listing = doc.data();
+        }
+        return listing
+    }
+  });
+
 // // localhost:5001/group-01-match-making-co-78d4c/us-central1/testData
 exports.testData = functions.https.onRequest(async (req, res) => {
     // Test user 1

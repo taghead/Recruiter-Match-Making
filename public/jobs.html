@@ -210,7 +210,15 @@
     </div>
 
 
-    Candidates for job are: <p id="candidates"></p>
+    Candidates for job are:
+    <table id="candidates" style="width:100%">
+      <tr>
+        <th>Listing Name</th>
+        <th>Description</th>
+        <th>Skills</th>
+        <th>Candidates</th>
+      </tr>
+    </table>
     
     <!--
       Initialize Scripts
@@ -229,40 +237,41 @@
     <script>
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
+
+            // Get User Doc
             const users =  firebase.firestore().collection("users").get().then((userDoc) => {
               const res = userDoc.forEach((userDoc) => {
                 if (userDoc.data()['email'] == user.email){
-                  for ( i in userDoc.data()['listings'] ){
-                    var getJobCandidates = firebase.functions().httpsCallable('getJobCandidates');
-                    getJobCandidates({ id: userDoc.data()['listings'][i] }).then((result) => {
-                      const listings =  firebase.firestore().collection("listings").get().then((listingDoc) => {
-                        const res = listingDoc.forEach((listing) => {
 
-                          let candidatesString;
-                          let candidatesList;
+                  // Iterate over listings the user posted
+                  console.log(userDoc.data()['listings'])
+                  //let candidatesList;
+                  var getJobCandidates = firebase.functions().httpsCallable('getJobCandidates');
+                  for ( let i=0; i < userDoc.data()['listings'].length; i++ ){
+                    getJobCandidates({ id: userDoc.data()['listings'][i] }).then((usersOwnedListings) => {
+                      var getJobListing = firebase.functions().httpsCallable('getJobListing');
+                      getJobListing({ id: userDoc.data()['listings'][i] }).then((listingDoc) => {
+                        let candidatesList;
+                        console.log(listingDoc.data)
+                        // Write job listing details to html
+                        if ( !candidatesList ){
+                          candidatesList = `
+  
+                          ` 
+                        } 
+                        candidatesList = `
+                          <tr>
+                            <td>${listingDoc.data['jobName']}</td>
+                            <td>${listingDoc.data['description']}</td>
+                            <td>${listingDoc.data['skills']}</td>
+                            <td>${listingDoc.data['candidates']}</td>
+                          </tr>
+                        `
 
-                          if ( toString(listing.id) == toString(userDoc.data()['listings'][i])){
-                            candidatesString = listing.data()['jobName']+": "
-
-                            for ( j in result.data){
-                              candidatesString += result.data[j]
-
-                              if ( j < result.data.length-1 ) {
-                                candidatesString += ", "
-                              }
-                              if (!candidatesList){
-                                candidatesList="<li>"+candidatesString+"</li>"
-                              } else {
-                                candidatesList+="<li>"+candidatesString+"</li>"
-                              }
-                            }
-                            document.getElementById("candidates").innerHTML = candidatesList;
-                          }
-                        })
-                      })
+                        document.getElementById("candidates").innerHTML += candidatesList;
+                    })
                     });
                   }
-
                 }
               })
             })
