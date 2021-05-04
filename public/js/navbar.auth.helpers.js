@@ -59,8 +59,10 @@ function handleSignUp() {
     firebase.firestore().collection('users').add({
       email: email,
       role: role
+    }).then(function (){
+      location.reload();
     });
-    location.reload();
+    
   }).catch(function (error) {
     // Handle Errors here.
     var errorCode = error.code;
