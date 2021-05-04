@@ -108,6 +108,9 @@ function initApp() {
   // Listening for auth state changes.
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
+      if(document.getElementById('login') != null){
+        document.getElementById("account-details").innerHTML=user.email
+      }
       document.getElementById('login').textContent = 'Logout';
       if (location.pathname == "/"){
         window.setTimeout(function() {
