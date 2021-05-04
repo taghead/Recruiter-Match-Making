@@ -16,7 +16,7 @@
         <br/><br/>
         <button disabled class="mdl-button mdl-js-button mdl-button--raised" id="sign-in" name="signin">Sign In</button>
         &nbsp;&nbsp;&nbsp;
-        <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-up" name="signup">Sign Up</button>
+        <button class="mdl-button mdl-js-button mdl-button--raised" id="sign-up" name="signup">Sign Up</button>
         
         <label for="role">Choose a role:</label>
 
@@ -173,11 +173,11 @@ function initApp() {
     document.getElementById('sign-in').disabled = false;
   });
 
-  document.getElementById('sign-in').addEventListener('click', toggleSignIn, false);
-  document.getElementById('logout').addEventListener('click', toggleSignIn, false);
-  document.getElementById('quickstart-sign-up').addEventListener('click', handleSignUp, false);
-  document.getElementById('verify-email').addEventListener('click', sendEmailVerification, false);
-  document.getElementById('password-reset').addEventListener('click', sendPasswordReset, false);
+  if (document.getElementById('sign-in') != null) document.getElementById('sign-in').addEventListener('click', toggleSignIn, false);
+  if (document.getElementById('sign-up') != null) document.getElementById('sign-up').addEventListener('click', handleSignUp, false);
+  if (document.getElementById('verify-email') != null) document.getElementById('verify-email').addEventListener('click', sendEmailVerification, false);
+  if (document.getElementById('password-reset') != null) document.getElementById('password-reset').addEventListener('click', sendPasswordReset, false);
+  if (document.getElementById('logout') != null) document.getElementById('logout').addEventListener('click', toggleSignIn, false);
 }
 
 window.onload = function () {
