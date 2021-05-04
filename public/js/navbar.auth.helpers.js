@@ -1,26 +1,15 @@
 /* This helper requires the following html
 
-  <h4>Login and signup</h4><br />
-  <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
-    <div class="mdl-card__title mdl-color--light-blue-600 mdl-color-text--white">
-    </div>
-    <div>
-
-      <input  style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email"/>
-      &nbsp;&nbsp;&nbsp;
-      <input  style="display:inline;width:auto;" type="password" id="password" name="password" placeholder="Password"/>
-      <br/><br/>
-      <button disabled id="sign-in" name="signin">Sign In</button>
-      &nbsp;&nbsp;&nbsp;
-      <button  id="sign-up" name="signup">Sign Up</button>
-      
-      <label for="role">Choose a role:</label>
-
-      <select  style="display:inline;width:auto;" name="role" id="role">
-        <option value="employee">Employee</option>
-        <option value="employer">Employer</option>
-      </select> 
-    </div>
+    <h4>Login and signup</h4>
+    <input  type="text" id="email" name="email" placeholder="Email"/>
+    <input  type="password" id="password" name="password" placeholder="Password"/>
+    <button disabled id="sign-in" name="signin">Sign In</button>
+    <button  id="sign-up" name="signup">Sign Up</button>
+    <label for="role">Choose a role:</label>
+    <select name="role" id="role">
+      <option value="employee">Employee</option>
+      <option value="employer">Employer</option>
+    </select> 
   </div>
 
   <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
@@ -57,7 +46,8 @@ function toggleSignIn() {
       var errorMessage = error.message;
       if (errorCode === 'auth/wrong-password') {
         alert('Wrong password.');
-      } else {
+      } 
+      else {
         alert(errorMessage);
       }
       console.log(error);
@@ -68,7 +58,7 @@ function toggleSignIn() {
 }
 
 // Handles sign up
-function handleSignUp() {
+function handleSignUp(){
   var email = document.getElementById('email').value;
   var password = document.getElementById('password').value;
   var role = document.getElementById('role').value;
@@ -83,7 +73,8 @@ function handleSignUp() {
   }
   if (role == "employee" || role == "employer") {
 
-  } else {
+  } 
+  else {
     alert('Please select a role from the drop down list');
     return;
   }
@@ -96,40 +87,14 @@ function handleSignUp() {
     }).then(function (){
       location.reload();
     });
-    
   }).catch(function (error) {
     // Handle Errors here.
     var errorCode = error.code;
     var errorMessage = error.message;
     if (errorCode == 'auth/weak-password') {
       alert('The password is too weak.');
-    } else {
-      alert(errorMessage);
-    }
-    console.log(error);
-  });
-}
-
-// Verify the users account
-function sendEmailVerification() {
-  firebase.auth().currentUser.sendEmailVerification().then(function () {
-    alert('Email Verification Sent!');
-  });
-}
-
-// Send password reset
-function sendPasswordReset() {
-  var email = document.getElementById('email').value;
-  firebase.auth().sendPasswordResetEmail(email).then(function () {
-    // Password Reset Email Sent!
-    alert('Password Reset Email Sent!');
-  }).catch(function (error) {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    if (errorCode == 'auth/invalid-email') {
-      alert(errorMessage);
-    } else if (errorCode == 'auth/user-not-found') {
+    } 
+    else {
       alert(errorMessage);
     }
     console.log(error);
@@ -142,16 +107,23 @@ function initApp() {
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
       document.getElementById('sign-in').textContent = 'Sign out';
-    } else {
+    } 
+    else {
       // User is signed out.
       document.getElementById('sign-in').textContent = 'Sign in';
     }
     document.getElementById('sign-in').disabled = false;
   });
 
-  if (document.getElementById('sign-in') != null) document.getElementById('sign-in').addEventListener('click', toggleSignIn, false);
-  if (document.getElementById('sign-up') != null) document.getElementById('sign-up').addEventListener('click', handleSignUp, false);
-  if (document.getElementById('logout') != null) document.getElementById('logout').addEventListener('click', toggleSignIn, false);
+  if (document.getElementById('sign-in') != null){
+    document.getElementById('sign-in').addEventListener('click', toggleSignIn, false);
+  }
+  if (document.getElementById('sign-up') != null){
+    document.getElementById('sign-up').addEventListener('click', handleSignUp, false);
+  }
+  if (document.getElementById('logout') != null){
+    document.getElementById('logout').addEventListener('click', toggleSignIn, false);
+  } 
 }
 
 window.onload = function () {
