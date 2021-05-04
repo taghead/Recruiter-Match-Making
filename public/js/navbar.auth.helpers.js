@@ -110,14 +110,18 @@ function initApp() {
     if (user) {
       document.getElementById('login').textContent = 'Logout';
       if (location.pathname == "/"){
-        location.replace("/users.html");
+        window.setTimeout(function() {
+          location.replace("/users.html");
+        }, 2000)
       }
     } 
     else {
       // User is signed out.
       document.getElementById('login').textContent = 'Sign in';
       if (location.pathname != "/"){
-        location.replace("/");
+        window.setTimeout(function() {
+          location.replace("/");
+        }, 2000)
       }
     }
     document.getElementById('login').disabled = false;
