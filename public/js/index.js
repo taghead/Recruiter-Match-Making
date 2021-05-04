@@ -8,6 +8,9 @@ appId: "1:784245292062:web:1595179e05c02b90c3020f",
 measurementId: "G-63R4C1NDKD"
 };
 firebase.initializeApp(firebaseConfig);
-// firebase.auth().useEmulator("http://localhost:9099");
-// firebase.firestore().useEmulator("localhost", 8080);
-// firebase.functions().useEmulator("localhost", 5001);
+if (location.hostname === "localhost") {
+  firebase.auth().useEmulator("http://localhost:9099");
+  firebase.firestore().useEmulator("localhost", 8080);
+  firebase.functions().useEmulator("localhost", 5001);
+  console.log("Using emulators for auth, firestore and functions")
+}

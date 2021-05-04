@@ -203,6 +203,7 @@
     <div class="container" style="margin-top: 40px;">
       <ul class="collapsible z-depth-0" id="job-list" style="border: none;">
         <!-- Content loaded by JavaScript -->
+        <table id="candidates" style="width:100%"></table>
         <div class="progress"> <!-- Loading bar -->
           <div class="indeterminate"></div>
         </div>
@@ -210,15 +211,6 @@
     </div>
 
 
-    Candidates for job are:
-    <table id="candidates" style="width:100%">
-      <tr>
-        <th>Listing Name</th>
-        <th>Description</th>
-        <th>Skills</th>
-        <th>Candidates</th>
-      </tr>
-    </table>
     
     <!--
       Initialize Scripts
@@ -234,49 +226,6 @@
     <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-functions.js"></script>
     <script src="js/index.js"></script>
 
-    <script>
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-
-            // Get User Doc
-            const users =  firebase.firestore().collection("users").get().then((userDoc) => {
-              const res = userDoc.forEach((userDoc) => {
-                if (userDoc.data()['email'] == user.email){
-
-                  // Iterate over listings the user posted
-                  console.log(userDoc.data()['listings'])
-                  //let candidatesList;
-                  var getJobCandidates = firebase.functions().httpsCallable('getJobCandidates');
-                  for ( let i=0; i < userDoc.data()['listings'].length; i++ ){
-                    getJobCandidates({ id: userDoc.data()['listings'][i] }).then((usersOwnedListings) => {
-                      var getJobListing = firebase.functions().httpsCallable('getJobListing');
-                      getJobListing({ id: userDoc.data()['listings'][i] }).then((listingDoc) => {
-                        let candidatesList;
-                        console.log(listingDoc.data)
-                        // Write job listing details to html
-                        if ( !candidatesList ){
-                          candidatesList = `
-  
-                          ` 
-                        } 
-                        candidatesList = `
-                          <tr>
-                            <td>${listingDoc.data['jobName']}</td>
-                            <td>${listingDoc.data['description']}</td>
-                            <td>${listingDoc.data['skills']}</td>
-                            <td>${listingDoc.data['candidates']}</td>
-                          </tr>
-                        `
-
-                        document.getElementById("candidates").innerHTML += candidatesList;
-                    })
-                    });
-                  }
-                }
-              })
-            })
-          }
-        })
-    </script>
+    <script  src="js/employer.jobs.component.js"></script>
   </body>
 </html>
