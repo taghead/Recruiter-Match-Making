@@ -16,7 +16,8 @@
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     // Set Table Headings
-    document.getElementById("job-list-table").innerHTML += `
+    document.getElementById("job-list-table").innerHTML += 
+    `
     <tr>
       <th>Listing Name</th>
       <th>Description</th>
@@ -50,6 +51,10 @@ firebase.auth().onAuthStateChanged(function(user) {
                         <td>${listingDoc.data['candidates']}</td>
                       </tr>
                     `
+                    //Removes loading bar on last iteration
+                    if ( i == userDoc.data()['listings'].length-1){
+                      document.getElementById("job-list-progress").remove();
+                    }
                   })
                 });
               }
@@ -62,11 +67,19 @@ firebase.auth().onAuthStateChanged(function(user) {
               "(ㄒoㄒ) oh noooo I need to make some listings.",
               "ಥ_ಥ Listings why have you failed me. Oh wait I just forgot to make some :P."]
               document.getElementById("job-list-table").innerHTML = `
-              <th colspan=4>
-              ${zeroListings[Math.floor(Math.random() * zeroListings.length)]}<br/>
-              Normally listings will be here... 
-              </td>
+              <tr>
+                <th>Listing Name</th>
+                <th>Description</th>
+                <th>Skills</th>
+                <th>Candidates</th>
+              </tr>
+              <tr>
+                <td style="text-align: center;" colspan=4>
+                  ${zeroListings[Math.floor(Math.random() * zeroListings.length)]} Normally listings will be here... 
+                </td>
+              </tr>
               `
+              document.getElementById("job-list-progress").remove();
             }
           }
         }
