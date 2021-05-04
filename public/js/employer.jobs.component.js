@@ -12,39 +12,62 @@
     <script  src="js/employer.jobs.component.js"></script>
 */
 
-// Set Table Headings
-document.getElementById("job-list-table").innerHTML += `
-<tr>
-  <th>Listing Name</th>
-  <th>Description</th>
-  <th>Skills</th>
-  <th>Candidates</th>
-</tr>
-`
 
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
+    // Set Table Headings
+    document.getElementById("job-list-table").innerHTML += `
+    <tr>
+      <th>Listing Name</th>
+      <th>Description</th>
+      <th>Skills</th>
+      <th>Candidates</th>
+    </tr>
+    `
+    
     // Get signed in users document
     const users =  firebase.firestore().collection("users").get().then((userDoc) => {
       const res = userDoc.forEach((userDoc) => {
         if (userDoc.data()['email'] == user.email){
           // Iterate over listings the user posted
           var getJobCandidates = firebase.functions().httpsCallable('getJobCandidates');
-          for ( let i=0; i < userDoc.data()['listings'].length; i++ ){
-            getJobCandidates({ id: userDoc.data()['listings'][i] }).then((usersOwnedListings) => {
-              var getJobListing = firebase.functions().httpsCallable('getJobListing');
-              getJobListing({ id: userDoc.data()['listings'][i] }).then((listingDoc) => {
-                // Write job listing details to html
-                document.getElementById("job-list-table").innerHTML += `
-                  <tr>
-                    <td>${listingDoc.data['jobName']}</td>
-                    <td>${listingDoc.data['description']}</td>
-                    <td>${listingDoc.data['skills']}</td>
-                    <td>${listingDoc.data['candidates']}</td>
-                  </tr>
-                `
-              })
-            });
+          try {
+            console.log(userDoc.data()['listings'].length)
+            if (userDoc.data()['listings'].length == "0"){
+              throw TypeError;
+            }
+            if ( userDoc.data()['listings'] ){
+              for ( let i=0; i < userDoc.data()['listings'].length; i++ ){
+                getJobCandidates({ id: userDoc.data()['listings'][i] }).then((usersOwnedListings) => {
+                  var getJobListing = firebase.functions().httpsCallable('getJobListing');
+                  getJobListing({ id: userDoc.data()['listings'][i] }).then((listingDoc) => {
+                    // Write job listing details to html
+                    document.getElementById("job-list-table").innerHTML += `
+                      <tr>
+                        <td>${listingDoc.data['jobName']}</td>
+                        <td>${listingDoc.data['description']}</td>
+                        <td>${listingDoc.data['skills']}</td>
+                        <td>${listingDoc.data['candidates']}</td>
+                      </tr>
+                    `
+                  })
+                });
+              }
+            }
+          }
+          catch (e) {
+            if (e instanceof TypeError || e.name == "TypeError") {
+              let zeroListings = ["(◡﹏◡✿) There are no listings here. I forgot to mention you had to make a listing.",
+              "Beep bop beep no listings detected [✖﹏✖] go make some.",
+              "(ㄒoㄒ) oh noooo I need to make some listings.",
+              "ಥ_ಥ Listings why have you failed me. Oh wait I just forgot to make some :P."]
+              document.getElementById("job-list-table").innerHTML = `
+              <th colspan=4>
+              ${zeroListings[Math.floor(Math.random() * zeroListings.length)]}<br/>
+              Normally listings will be here... 
+              </td>
+              `
+            }
           }
         }
       })
