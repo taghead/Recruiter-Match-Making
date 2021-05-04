@@ -28,3 +28,14 @@
 #invalid-user {
   color: #cc0000;
 }
+.parallax-container {
+  position: relative;
+  overflow: hidden;
+  
+}
+.responsive-img {
+  object-fit: cover;
+}
+p {
+  font-size: 18px;
+}
