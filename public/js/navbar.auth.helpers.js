@@ -1,45 +1,28 @@
-/* Add modal to html
+/* This helper requires the following html
 
-<div id="modal-login" class="modal">
-  <div class="modal-content">
-    <h4>Login</h4><br />
-    <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
-      <div class="mdl-card__title mdl-color--light-blue-600 mdl-color-text--white">
-        <h2 class="mdl-card__title-text">Firebase Email &amp; Password Authentication</h2>
-      </div>
-      <div class="mdl-card__supporting-text mdl-color-text--grey-600">
-        <p>Enter an email and password below and either sign in to an existing account or sign up</p>
+  <h4>Login and signup</h4><br />
+  <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
+    <div class="mdl-card__title mdl-color--light-blue-600 mdl-color-text--white">
+    </div>
+    <div>
 
-        <input class="mdl-textfield__input" style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email"/>
-        &nbsp;&nbsp;&nbsp;
-        <input class="mdl-textfield__input" style="display:inline;width:auto;" type="password" id="password" name="password" placeholder="Password"/>
-        <br/><br/>
-        <button disabled class="mdl-button mdl-js-button mdl-button--raised" id="sign-in" name="signin">Sign In</button>
-        &nbsp;&nbsp;&nbsp;
-        <button class="mdl-button mdl-js-button mdl-button--raised" id="sign-up" name="signup">Sign Up</button>
-        
-        <label for="role">Choose a role:</label>
+      <input  style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email"/>
+      &nbsp;&nbsp;&nbsp;
+      <input  style="display:inline;width:auto;" type="password" id="password" name="password" placeholder="Password"/>
+      <br/><br/>
+      <button disabled id="sign-in" name="signin">Sign In</button>
+      &nbsp;&nbsp;&nbsp;
+      <button  id="sign-up" name="signup">Sign Up</button>
+      
+      <label for="role">Choose a role:</label>
 
-        <select class="mdl-textfield__input" style="display:inline;width:auto;" name="role" id="role">
-          <option value="employee">Employee</option>
-          <option value="employer">Employer</option>
-        </select> 
-        
-        &nbsp;&nbsp;&nbsp;
-        <button class="mdl-button mdl-js-button mdl-button--raised" disabled id="verify-email" name="verify-email">Send Email Verification</button>
-        &nbsp;&nbsp;&nbsp;
-        <button class="mdl-button mdl-js-button mdl-button--raised" id="password-reset" name="verify-email">Send Password Reset Email</button>
-        
-        <div class="quickstart-user-details-container">
-          Status: <span id="sign-in-status">Unknown</span>
-        </div>
-      </div>
+      <select  style="display:inline;width:auto;" name="role" id="role">
+        <option value="employee">Employee</option>
+        <option value="employer">Employer</option>
+      </select> 
     </div>
   </div>
-</div>
-*/
 
-/* Add script to html
   <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-analytics.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-auth.js"></script>
@@ -157,17 +140,10 @@ function sendPasswordReset() {
 function initApp() {
   // Listening for auth state changes.
   firebase.auth().onAuthStateChanged(function (user) {
-    document.getElementById('verify-email').disabled = true;
     if (user) {
-      var emailVerified = user.emailVerified;
-      document.getElementById('sign-in-status').textContent = 'Signed in';
       document.getElementById('sign-in').textContent = 'Sign out';
-      if (!emailVerified) {
-        document.getElementById('verify-email').disabled = false;
-      }
     } else {
       // User is signed out.
-      document.getElementById('sign-in-status').textContent = 'Signed out';
       document.getElementById('sign-in').textContent = 'Sign in';
     }
     document.getElementById('sign-in').disabled = false;
@@ -175,8 +151,6 @@ function initApp() {
 
   if (document.getElementById('sign-in') != null) document.getElementById('sign-in').addEventListener('click', toggleSignIn, false);
   if (document.getElementById('sign-up') != null) document.getElementById('sign-up').addEventListener('click', handleSignUp, false);
-  if (document.getElementById('verify-email') != null) document.getElementById('verify-email').addEventListener('click', sendEmailVerification, false);
-  if (document.getElementById('password-reset') != null) document.getElementById('password-reset').addEventListener('click', sendPasswordReset, false);
   if (document.getElementById('logout') != null) document.getElementById('logout').addEventListener('click', toggleSignIn, false);
 }
 
