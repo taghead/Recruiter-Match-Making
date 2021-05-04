@@ -203,7 +203,7 @@
     <div class="container" style="margin-top: 40px;">
       <ul class="collapsible z-depth-0" id="job-list" style="border: none;">
         <!-- Content loaded by JavaScript -->
-        <table id="candidates" style="width:100%"></table>
+        <table id="job-list-table" style="width:100%"></table>
         <div class="progress"> <!-- Loading bar -->
           <div class="indeterminate"></div>
         </div>
@@ -226,6 +226,11 @@
     <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-functions.js"></script>
     <script src="js/index.js"></script>
 
+    <!-- 
+      Loads job-list-table in table 
+      
+      Refer to <table id="job-list-table" style="width:100%"></table> 
+    -->
     <script  src="js/employer.jobs.component.js"></script>
   </body>
 </html>

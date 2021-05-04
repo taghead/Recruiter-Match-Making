@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- Materialize CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href = "https://fonts.googleapis.com/icon?family=Material+Icons">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
     <title>Easy Recruit</title>
@@ -16,75 +17,79 @@
     <!-- NAVBAR -->
     <nav class="z-depth-0 grey darken-4">
       <div class="nav-wrapper container">
+        
         <!-- LEFT ALIGNED -->
         <ul class="nav-mobile" class="left">
           <li class="logo">
-            <img src="img/logo.png" class="img-fluid" style="width: 64px; height: 64px;">
+            <a href="#" class="btn active teal lighten-1 hide-on-small"><i class="material-icons">business_center</i></a>
           </li>
-          <li class="logged-in waves-effect waves-light" style="display: visible">
-            <a href="tours.html" class="lightgrey-text modal-trigger">LISTINGS</a>
+          <li class="admin-logged-in waves-effect waves-light" style="display: " > <!-- REPLACE WITH NONE-->
+            <a href="admin_users.html" class="lightgrey-text modal-trigger">USERS</a>
           </li>
-          <li class="admin-logged-in waves-effect waves-light" style="display: visible">
-            <a href="admin.html" class="lightgrey-text modal-trigger">ADMIN</a>
+          <li class="admin-logged-in waves-effect waves-light" style="display: " >
+            <a href="admin_jobs.html" class="lightgrey-text modal-trigger">JOBS</a>
           </li>
         </ul>
+
         <!-- RIGHT ALIGNED -->
         <ul id="nav-mobile" class="right">
-          <li class="logged-in waves-effect waves-light" style="display: visible">
-            <a href="#" class="lightgrey-text modal-trigger" data-target="modal-create">Create</a>
+          <li class="logged-in waves-effect waves-light" style="display: ">
+            <a href="#create" class="lightgrey-text modal-trigger" data-target="modal-create">Create</a>
           </li>
-          <li class="logged-in waves-effect waves-light" style="display: visible">
-            <a href="#" class="lightgrey-text modal-trigger" data-target="modal-edit">Edit</a>
+          <li class="logged-in waves-effect waves-light" style="display: ">
+            <a href="#edit" class="lightgrey-text modal-trigger" data-target="modal-edit">Edit</a>
           </li>
-          <li class="logged-in waves-effect waves-light" style="display: visible">
-            <a href="#" class="lightgrey-text modal-trigger" data-target="modal-account">Account</a>
+          <li class="logged-in waves-effect waves-light" style="display: ">
+            <a href="#account" class="lightgrey-text modal-trigger" data-target="modal-account">Account</a>
           </li>
-          <li class="logged-in waves-effect waves-light" style="display: visible">
-            <a href="#" class="lightgrey-text" id="logout">Logout</a>
+          <li class="logged-in waves-effect waves-light" style="display: ">
+            <a href="#logout" class="lightgrey-text" id="logout">Logout</a>
           </li>
-          <li class="logged-out waves-effect waves-light" style="display: visible">
-            <a href="#" class="lightgrey-text modal-trigger" data-target="modal-login">Login</a>
+          <li class="logged-out waves-effect waves-light" style="display: ">
+            <a href="#login" class="lightgrey-text modal-trigger" data-target="modal-login">Login</a>
           </li>
         </ul>
       </div>
     </nav>
-
-          <!-- Container for the demo -->
-          <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
-            <div class="mdl-card__title mdl-color--light-blue-600 mdl-color-text--white">
-              <h2 class="mdl-card__title-text">Firebase Email &amp; Password Authentication</h2>
-            </div>
-            <div class="mdl-card__supporting-text mdl-color-text--grey-600">
-              <p>Enter an email and password below and either sign in to an existing account or sign up</p>
     
-              <input class="mdl-textfield__input" style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email"/>
-              &nbsp;&nbsp;&nbsp;
-              <input class="mdl-textfield__input" style="display:inline;width:auto;" type="password" id="password" name="password" placeholder="Password"/>
-              <br/><br/>
-              <button disabled class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-in" name="signin">Sign In</button>
-              &nbsp;&nbsp;&nbsp;
-              <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-up" name="signup">Sign Up</button>
-              
-              <label for="role">Choose a role:</label>
-
-              <select class="mdl-textfield__input" style="display:inline;width:auto;" name="role" id="role">
-                <option value="employee">Employee</option>
-                <option value="employer">Employer</option>
-              </select> 
-              
-              &nbsp;&nbsp;&nbsp;
-              <button class="mdl-button mdl-js-button mdl-button--raised" disabled id="quickstart-verify-email" name="verify-email">Send Email Verification</button>
-              &nbsp;&nbsp;&nbsp;
-              <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-password-reset" name="verify-email">Send Password Reset Email</button>
-    
-              <!-- Container where we'll display the user details -->
-              <div class="quickstart-user-details-container">
-                Firebase sign-in status: <span id="quickstart-sign-in-status">Unknown</span>
-                <div>Firebase auth <code>currentUser</code> object value:</div>
-                <pre><code id="quickstart-account-details">null</code></pre>
-              </div>
+    <!-- Login Modal -->
+    <div id="modal-login" class="modal">
+      <div class="modal-content">
+        <h4>Login</h4><br />
+        <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
+          <div class="mdl-card__title mdl-color--light-blue-600 mdl-color-text--white">
+            <h2 class="mdl-card__title-text">Firebase Email &amp; Password Authentication</h2>
+          </div>
+          <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+            <p>Enter an email and password below and either sign in to an existing account or sign up</p>
+  
+            <input class="mdl-textfield__input" style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email"/>
+            &nbsp;&nbsp;&nbsp;
+            <input class="mdl-textfield__input" style="display:inline;width:auto;" type="password" id="password" name="password" placeholder="Password"/>
+            <br/><br/>
+            <button disabled class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-in" name="signin">Sign In</button>
+            &nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-up" name="signup">Sign Up</button>
+            
+            <label for="role">Choose a role:</label>
+  
+            <select class="mdl-textfield__input" style="display:inline;width:auto;" name="role" id="role">
+              <option value="employee">Employee</option>
+              <option value="employer">Employer</option>
+            </select> 
+            
+            &nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-button--raised" disabled id="quickstart-verify-email" name="verify-email">Send Email Verification</button>
+            &nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-password-reset" name="verify-email">Send Password Reset Email</button>
+            
+            <div class="quickstart-user-details-container">
+              Status: <span id="quickstart-sign-in-status">Unknown</span>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Firebase App -->
     <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
@@ -96,6 +101,6 @@
     <!-- Javascript -->
     <script src="js/index.js"></script>
     <!--Custom Script-->
-    <script src="js/auth.component.js"></script>
+    <script src="js/navbar.component.js"></script>
   </body>
 </html>
