@@ -1,3 +1,49 @@
+/* Add modal to html
+
+<div id="modal-login" class="modal">
+  <div class="modal-content">
+    <h4>Login</h4><br />
+    <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
+      <div class="mdl-card__title mdl-color--light-blue-600 mdl-color-text--white">
+        <h2 class="mdl-card__title-text">Firebase Email &amp; Password Authentication</h2>
+      </div>
+      <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+        <p>Enter an email and password below and either sign in to an existing account or sign up</p>
+
+        <input class="mdl-textfield__input" style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email"/>
+        &nbsp;&nbsp;&nbsp;
+        <input class="mdl-textfield__input" style="display:inline;width:auto;" type="password" id="password" name="password" placeholder="Password"/>
+        <br/><br/>
+        <button disabled class="mdl-button mdl-js-button mdl-button--raised" id="sign-in" name="signin">Sign In</button>
+        &nbsp;&nbsp;&nbsp;
+        <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-up" name="signup">Sign Up</button>
+        
+        <label for="role">Choose a role:</label>
+
+        <select class="mdl-textfield__input" style="display:inline;width:auto;" name="role" id="role">
+          <option value="employee">Employee</option>
+          <option value="employer">Employer</option>
+        </select> 
+        
+        &nbsp;&nbsp;&nbsp;
+        <button class="mdl-button mdl-js-button mdl-button--raised" disabled id="verify-email" name="verify-email">Send Email Verification</button>
+        &nbsp;&nbsp;&nbsp;
+        <button class="mdl-button mdl-js-button mdl-button--raised" id="password-reset" name="verify-email">Send Password Reset Email</button>
+        
+        <div class="quickstart-user-details-container">
+          Status: <span id="sign-in-status">Unknown</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+*/
+
+/* Add script to html
+  
+  <script src="js/navbar.component.js"></script>
+*/
+
 // Handles sign in and signout
 function toggleSignIn() {
   if (firebase.auth().currentUser) {

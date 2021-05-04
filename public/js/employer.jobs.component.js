@@ -1,7 +1,8 @@
-/*
-This component requires the following html
+/* This component requires the following html
+      
+    <table id="job-list-table" style="width:100%"></table> 
 
-<table id="candidates" style="width:100%"></table>
+    <script  src="js/employer.jobs.component.js"></script>
 */
 
 // Set Table Headings

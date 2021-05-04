@@ -11,6 +11,22 @@ firebase.initializeApp(firebaseConfig);
 if (location.hostname === "localhost") {
   firebase.auth().useEmulator("http://localhost:9099");
   firebase.firestore().useEmulator("localhost", 8080);
-  //firebase.functions().useEmulator("localhost", 5001);
+  firebase.functions().useEmulator("localhost", 5001);
   console.log("Using emulators for auth, firestore and functions")
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  const modalOptions = {
+    onCloseEnd: () => {
+      resetForm();
+    }
+  };
+  var modals = document.querySelectorAll('.modal');
+  M.Modal.init(modals, modalOptions);
+  var items = document.querySelectorAll('.collapsible');
+  M.Collapsible.init(items);
+});
+
+function resetForm() { 
+
 }
