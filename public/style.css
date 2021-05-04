@@ -28,3 +28,7 @@
 #invalid-user {
   color: #cc0000;
 }
+.responsive {
+  width: 100%;
+  height: auto;
+}

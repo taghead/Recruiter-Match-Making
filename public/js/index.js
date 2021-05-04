@@ -11,3 +11,10 @@ firebase.initializeApp(firebaseConfig);
 // firebase.auth().useEmulator("http://localhost:9099");
 // firebase.firestore().useEmulator("localhost", 8080);
 // firebase.functions().useEmulator("localhost", 5001);
+
+document.addEventListener('DOMContentLoaded', function() { // Materialize Components
+  var modals = document.querySelectorAll('.modal'); // Declare modal
+  M.Modal.init(modals, modalOptions); // Initialize modal
+  var items = document.querySelectorAll('.collapsible'); // Declare Collapsible
+  M.Collapsible.init(items); // Initialize collapsible
+});
