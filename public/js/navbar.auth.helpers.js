@@ -123,6 +123,7 @@ function initApp() {
   });
 
   document.getElementById('sign-in').addEventListener('click', toggleSignIn, false);
+  document.getElementById('logout').addEventListener('click', toggleSignIn, false);
   document.getElementById('quickstart-sign-up').addEventListener('click', handleSignUp, false);
   document.getElementById('verify-email').addEventListener('click', sendEmailVerification, false);
   document.getElementById('password-reset').addEventListener('click', sendPasswordReset, false);
