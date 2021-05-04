@@ -4,7 +4,7 @@
     <h4>Login and signup</h4>
     <input  type="text" id="email" placeholder="Email"/>
     <input  type="password" id="password" placeholder="Password"/>
-    <button disabled id="sign-in">Sign In</button>
+    <button disabled id="login">Sign In</button>
     <button  id="sign-up">Sign Up</button>
     
     <label for="role">Role:</label>
@@ -53,10 +53,10 @@ function toggleSignIn() {
         alert(errorMessage);
       }
       console.log(error);
-      document.getElementById('sign-in').disabled = false;
+      document.getElementById('login').disabled = false;
     });
   }
-  document.getElementById('sign-in').disabled = true;
+  document.getElementById('login').disabled = true;
 }
 
 // Handles sign up
@@ -108,17 +108,23 @@ function initApp() {
   // Listening for auth state changes.
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
-      document.getElementById('sign-in').textContent = 'Sign out';
+      document.getElementById('login').textContent = 'Logout';
+      if (location.pathname == "/"){
+        location.replace("/users.html");
+      }
     } 
     else {
       // User is signed out.
-      document.getElementById('sign-in').textContent = 'Sign in';
+      document.getElementById('login').textContent = 'Sign in';
+      if (location.pathname != "/"){
+        location.replace("/");
+      }
     }
-    document.getElementById('sign-in').disabled = false;
+    document.getElementById('login').disabled = false;
   });
 
-  if (document.getElementById('sign-in') != null){
-    document.getElementById('sign-in').addEventListener('click', toggleSignIn, false);
+  if (document.getElementById('login') != null){
+    document.getElementById('login').addEventListener('click', toggleSignIn, false);
   }
   if (document.getElementById('sign-up') != null){
     document.getElementById('sign-up').addEventListener('click', handleSignUp, false);

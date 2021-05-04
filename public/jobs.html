@@ -40,7 +40,7 @@
             <a href="#" class="lightgrey-text" id="account-details"> <!-- INJECT ACCOUNT EMAIL --> </a>
           </li>
           <li class="waves-effect waves-light">
-            <a href="#" class="btn lightgrey-text" id="logout">Logout</a>
+            <button id="login" class="btn teal lighten-1 z-depth-0 waves-effect waves-light">Logout</button>
           </li>
           </li>
         </ul>
@@ -157,6 +157,7 @@
       </div>
     </div>
 
+    <table id="job-list-table" style="width:100%"></table> 
     <!-- Job List -->
     <div class="container" style="margin-top: 40px;">
       <ul class="collapsible z-depth-0" id="job-list" style="border: none;">
@@ -183,6 +184,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Custom Scripts -->
     <script src="js/index.js"></script>
-    
+    <script src="js/navbar.auth.helpers.js"></script>
+    <script src="js/employer.jobs.component.js"></script>    
   </body>
 </html>
