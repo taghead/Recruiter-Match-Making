@@ -1,12 +1,14 @@
 /* This helper requires the following html
 
+  <div>
     <h4>Login and signup</h4>
-    <input  type="text" id="email" name="email" placeholder="Email"/>
-    <input  type="password" id="password" name="password" placeholder="Password"/>
-    <button disabled id="sign-in" name="signin">Sign In</button>
-    <button  id="sign-up" name="signup">Sign Up</button>
-    <label for="role">Choose a role:</label>
-    <select name="role" id="role">
+    <input  type="text" id="email" placeholder="Email"/>
+    <input  type="password" id="password" placeholder="Password"/>
+    <button disabled id="sign-in">Sign In</button>
+    <button  id="sign-up">Sign Up</button>
+    
+    <label for="role">Role:</label>
+    <select id="role">
       <option value="employee">Employee</option>
       <option value="employer">Employer</option>
     </select> 
@@ -72,14 +74,14 @@ function handleSignUp(){
     return;
   }
   if (role == "employee" || role == "employer") {
-
+    // I know we can just use != but some ungodly reasons this is more stable
   } 
   else {
     alert('Please select a role from the drop down list');
     return;
   }
   // Create user with email and pass.
-  firebase.auth().createUserWithEmailAndPassword(email, password).then(function (firebaseUser) {
+  firebase.auth().createUserWithEmailAndPassword(email, password).then(function () {
     // Create firestore entry for user
     firebase.firestore().collection('users').add({
       email: email,
@@ -123,7 +125,7 @@ function initApp() {
   }
   if (document.getElementById('logout') != null){
     document.getElementById('logout').addEventListener('click', toggleSignIn, false);
-  } 
+  }
 }
 
 window.onload = function () {
