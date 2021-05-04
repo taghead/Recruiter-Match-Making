@@ -40,8 +40,13 @@
 */
 
 /* Add script to html
-  
-  <script src="js/navbar.component.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-firestore.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="js/index.js"></script>
+  <script src="js/navbar.auth.helpers.js"></script>
 */
 
 // Handles sign in and signout
