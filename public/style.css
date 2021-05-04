@@ -28,7 +28,14 @@
 #invalid-user {
   color: #cc0000;
 }
-.responsive {
-  width: 100%;
-  height: auto;
+.parallax-container {
+  position: relative;
+  overflow: hidden;
+  
+}
+.responsive-img {
+  object-fit: cover;
+}
+p {
+  font-size: 18px;
 }

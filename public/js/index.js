@@ -6,4 +6,6 @@ document.addEventListener('DOMContentLoaded', function() { // Materialize Compon
   var items = document.querySelectorAll('.collapsible'); // Declare Collapsible
   M.Collapsible.init(items); // Initialize collapsible
 
+  var parrs = document.querySelectorAll('.parallax');
+  M.Parallax.init(parrs);
 });
