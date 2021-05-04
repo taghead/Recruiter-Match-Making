@@ -15,10 +15,10 @@
 // Set Table Headings
 document.getElementById("job-list-table").innerHTML += `
 <tr>
-<th>Listing Name</th>
-<th>Description</th>
-<th>Skills</th>
-<th>Candidates</th>
+  <th>Listing Name</th>
+  <th>Description</th>
+  <th>Skills</th>
+  <th>Candidates</th>
 </tr>
 `
 
