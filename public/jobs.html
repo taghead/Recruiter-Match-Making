@@ -1,7 +1,3 @@
-<!-- EMPLOYERS PAGE -->
-<!--
-  REQUIRES FURTHER WORK WHEN ADDING FUNCTIONS
--->
 <html lang="en">
 
   <head>
@@ -10,57 +6,183 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- Materialize CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" href = "https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
     <title>Easy Recruit</title>
   </head>
 
   <body class="grey lighten-2">
-
-  <nav class="z-depth-0 grey darken-4" id="navbar"></nav>
-  <div id="modals"></div>
-
-  <!-- Job List -->
-  <div class="container" style="margin-top: 40px;">
-    <ul class="collapsible z-depth-0" id="job-list" style="border: none;">
-      <!-- Content loaded by JavaScript -->
-      <table id="job-list-table" style="width:100%"></table>
-      <div class="progress"> <!-- Loading bar -->
-        <div class="indeterminate"></div>
-      </div>
-    </ul>
-  </div>
     
-    <!--
-      Initialize Scripts
-      Initialize Firebase
-      Matierlize Scripts
-      Custom Scripts
-    -->
+    <!-- NAVBAR -->
+    <nav class="z-depth-0 grey darken-4">
+      <div class="nav-wrapper container">
+        
+        <!-- LEFT ALIGNED -->
+        <ul class="nav-mobile" class="left">
+          <li class="logo"> <!-- Hides full name on mobile -->
+            <a href="#" class="btn active teal lighten-1 hide-on-small-only">Easy Recruit</a>
+          </li>
+          <li class="logo"> <!-- Hides small icon on tablet and above -->
+            <a href="#" class="btn active teal lighten-1 hide-on-med-and-up"><i class="material-icons">business_center</i></a>
+          </li>
+          <li class="waves-effect waves-light">
+            <a href="#" class="lightgrey-text modal-trigger" data-target="modal-create">CREATE</a>
+          </li>
+          <li class="waves-effect waves-light">
+            <a href="#" class="lightgrey-text modal-trigger" data-target="modal-edit">EDIT</a>
+          </li>
+        </ul>
+
+        <!-- RIGHT ALIGNED -->
+        <ul id="nav-mobile" class="right">
+          <li class="waves-effect waves-light hide-on-med-and-down">
+            <a href="#" class="lightgrey-text" id="account-details"> <!-- INJECT ACCOUNT EMAIL --> </a>
+          </li>
+          <li class="waves-effect waves-light">
+            <a href="#" class="btn lightgrey-text" id="logout">Logout</a>
+          </li>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Create Modal -->
+    <div id="modal-create" class="modal">
+      <div class="modal-content">
+        <h4>Create New Job</h4><br />
+        <form id="create-job-form">
+          <table>
+            <tr> <!-- Job Name -->
+              <th> Job Name: </th><td>
+                <div class="left container input-field">
+                  <input type="text" id="job-name" placeholder="Name" required>
+                </div>
+              </td>
+            </tr>
+            <tr> <!-- Job Description -->
+              <th> Job Description: </th><td>
+                <div class="left container input-field">
+                  <textarea id="description" class="materialize-textarea"></textarea>
+                </div>
+              </td>
+            </tr>
+            <tr> <!-- Job Skills -->
+              <th> Job Skills: </th><td>
+                <div class="left container">
+                  <select class="browser-default" id="skill-one">
+                    <option value="" disabled selected>Select Skill</option>
+                    <option value="">No Skill</option>
+                    <!-- Content loaded by Javascript -->
+                  </select>
+                </div>
+                <!-- 
+                  Going to keep this clear as there may be a better solution in the
+                  function. If we want an "unlimited" number of skills we can use a
+                  function to inject more html that contains a list of skills. Only
+                  issue I can see is potentially loading in "unlimited" skills for
+                  editing. This would require loops to load and save skills for edits
+                -->
+              </td>
+            </tr>
+          </table><br />
+          <button class="btn teal lighten-1 z-depth-0 wave-effect waves-light right">Create
+            <i class="material-icons right">add</i>
+          </button><br />
+        </form>
+      </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="modal-edit" class="modal">
+      <div class="modal-content">
+        <h4>Edit Existing Job</h4><br />
+
+        <!-- Load list of jobs -->
+        <form id="edit-job-list">
+          <select class="browser-default" id="job-edit-list">
+            <!-- Content loaded by Javascript -->
+
+            <!-- 
+              This area could also have a better solution as well
+            -->
+          </select>
+        </form>
+
+        <!-- Edit job details -->
+        <form id="edit-job-form">
+          <table>
+            <tr> <!-- Job Name -->
+              <th> Job Name: </th><td>
+                <div class="left container input-field">
+                  <input type="text" id="job-name" placeholder="Name" required>
+                </div>
+              </td>
+            </tr>
+            <tr> <!-- Job Description -->
+              <th> Job Description: </th><td>
+                <div class="left container input-field">
+                  <textarea id="description" class="materialize-textarea"></textarea>
+                </div>
+              </td>
+            </tr>
+            <tr> <!-- Job Skills -->
+              <th> Job Skills: </th><td>
+                <div class="left container">
+                  <select class="browser-default" id="skill-one">
+                    <option value="" disabled selected>Select Skill</option>
+                    <option value="">No Skill</option>
+                    <!-- Content loaded by Javascript -->
+                  </select>
+                </div>
+                <!-- 
+                  Going to keep this clear as there may be a better solution in the
+                  function. If we want an "unlimited" number of skills we can use a
+                  function to inject more html that contains a list of skills. Only
+                  issue I can see is potentially loading in "unlimited" skills for
+                  editing. This would require loops to load and save skills for edits
+                -->
+              </td>
+            </tr>
+          </table>
+        </form><br />
+        <!-- Edit tour button-->
+        <button class="btn orange darken-2 z-depth-0 waves-effect waves-light right" onclick="editJob()"> Edit 
+          <i class="material-icons right">edit</i>
+        </button>
+        <!-- Delete tour button -->
+        <button class="btn red darken-2 z-depth-0 waves-effect waves-light" onclick="deleteJob()"> Delete 
+          <i class="material-icons right">delete</i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Job List -->
+    <div class="container" style="margin-top: 40px;">
+      <ul class="collapsible z-depth-0" id="job-list" style="border: none;">
+        <!-- Content loaded by JavaScript -->
+        <!-- 
+            This should inject HTML that contains collapsable bodys that contains each job and in each job is should show matching users
+         -->
+        <div class="progress"> <!-- Loading bar -->
+          <div class="indeterminate"></div>
+        </div>
+      </ul>
+    </div>
+
+    <!-- Initialize Scripts -->
+    <!-- Firebase Scripts -->
     <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-functions.js"></script>
+    <!-- Materialize Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Custom Scripts -->
     <script src="js/index.js"></script>
     
-    <!-- 
-      Loads navbar content and handles user auth
-      
-      Refer to
-          <nav class="z-depth-0 grey darken-4" id="navbar"></nav>
-          <div id="modals"></div>
-    -->
-    <script src="js/navbar.component.js"></script>
-    
-    <!-- 
-      Loads job-list-table in table 
-      
-      Refer to <table id="job-list-table" style="width:100%"></table> 
-    -->
-    <script  src="js/employer.jobs.component.js"></script>
-
   </body>
 </html>
