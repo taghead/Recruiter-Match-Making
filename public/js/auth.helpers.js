@@ -137,19 +137,12 @@ function initApp() {
         })
       }
       document.getElementById('login').textContent = 'Logout';
-      if (location.pathname == "/"){
-        window.setTimeout(function() {
-          location.replace("/users.html");
-        }, 2000)
-      }
     } 
     else {
       // User is signed out.
       document.getElementById('login').textContent = 'Sign in';
       if (location.pathname != "/"){
-        window.setTimeout(function() {
-          location.replace("/");
-        }, 2000)
+        location.replace("/");
       }
     }
     document.getElementById('login').disabled = false;
