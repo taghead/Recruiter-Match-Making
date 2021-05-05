@@ -68,18 +68,12 @@ firebase.auth().onAuthStateChanged(function(user) {
               "Beep bop beep no listings detected [✖﹏✖] go make some.",
               "(ㄒoㄒ) oh noooo I need to make some listings.",
               "ಥ_ಥ Listings why have you failed me. Oh wait I just forgot to make some :P."]
-              document.getElementById("job-list-table").innerHTML = `
-              <tr>
-                <th>Listing Name</th>
-                <th>Description</th>
-                <th>Skills</th>
-                <th>Candidates</th>
-              </tr>
-              <tr>
-                <td style="text-align: center;" colspan=4>
-                  ${zeroListings[Math.floor(Math.random() * zeroListings.length)]} Normally listings will be here... 
-                </td>
-              </tr>
+              document.getElementById("job-list").innerHTML = `
+                <li>
+                  <div class="collapsible-header">
+                    <i class="material-icons">filter_drama</i>${zeroListings[Math.floor(Math.random() * zeroListings.length)]} Normally listings will be here... 
+                  </div>
+                </li>
               `
               document.getElementById("job-list-progress").remove();
             }
