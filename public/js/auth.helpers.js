@@ -140,7 +140,7 @@ function initApp() {
       if (location.pathname == "/"){
         window.setTimeout(function() {
           location.replace("/users.html");
-        }, 500)
+        }, 2000)
       }
     } 
     else {
@@ -149,7 +149,7 @@ function initApp() {
       if (location.pathname != "/"){
         window.setTimeout(function() {
           location.replace("/");
-        }, 500)
+        }, 2000)
       }
     }
     document.getElementById('login').disabled = false;
