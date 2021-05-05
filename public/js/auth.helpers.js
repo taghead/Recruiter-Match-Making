@@ -35,7 +35,6 @@
 function toggleSignIn() {
   if (firebase.auth().currentUser) {
     firebase.auth().signOut();
-    location.reload();
   } else {
     var email = document.getElementById('email').value;
     var password = document.getElementById('password').value;
@@ -49,7 +48,6 @@ function toggleSignIn() {
     }
     // Sign in with email and pass.
     firebase.auth().signInWithEmailAndPassword(email, password).then(function () {
-      location.reload();
     }).catch(function (error) {
       // Handle Errors here.
       var errorCode = error.code;
