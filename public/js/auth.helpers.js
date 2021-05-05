@@ -95,7 +95,6 @@ function handleSignUp(){
       email: email,
       role: role
     }).then(function (){
-      location.reload();
     });
   }).catch(function (error) {
     // Handle Errors here.
