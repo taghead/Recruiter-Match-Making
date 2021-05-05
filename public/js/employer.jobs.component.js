@@ -15,17 +15,6 @@
 
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
-    // Set Table Headings
-    document.getElementById("job-list-table").innerHTML += 
-    `
-    <tr>
-      <th>Listing Name</th>
-      <th>Description</th>
-      <th>Skills</th>
-      <th>Candidates</th>
-    </tr>
-    `
-    
     // Get signed in users document
     const users =  firebase.firestore().collection("users").get().then((userDoc) => {
       const res = userDoc.forEach((userDoc) => {
@@ -43,13 +32,26 @@ firebase.auth().onAuthStateChanged(function(user) {
                   var getJobListing = firebase.functions().httpsCallable('getJobListing');
                   getJobListing({ id: userDoc.data()['listings'][i] }).then((listingDoc) => {
                     // Write job listing details to html
-                    document.getElementById("job-list-table").innerHTML += `
-                      <tr>
-                        <td>${listingDoc.data['jobName']}</td>
-                        <td>${listingDoc.data['description']}</td>
-                        <td>${listingDoc.data['skills']}</td>
-                        <td>${listingDoc.data['candidates']}</td>
-                      </tr>
+                    document.getElementById("job-list").innerHTML += `
+                    <li>
+                      <div class="collapsible-header">
+                        <i class="material-icons">filter_drama</i>${listingDoc.data['jobName']}
+                      </div>
+                      <div class="collapsible-body white lighten-2"><span>
+                        <table>
+                          <tr>
+                            <th>Description</th>
+                            <th>Skills</th>
+                            <th>Candidates</th>
+                          </tr>
+                          <tr>
+                            <td>${listingDoc.data['description']}</td>
+                            <td>${listingDoc.data['skills']}</td>
+                            <td>${listingDoc.data['candidates']}</td>
+                          </tr>
+                        </table>                      
+                      </span></div>
+                  </li>
                     `
                     //Removes loading bar on last iteration
                     if ( i == userDoc.data()['listings'].length-1){

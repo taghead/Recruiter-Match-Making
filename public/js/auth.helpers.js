@@ -1,16 +1,6 @@
 /* This helper requires the following html
 
-  <!-- Navbar -->
-    <!-- RIGHT ALIGNED -->
-      <li class="waves-effect waves-light">
-        <a href="#" class="btn lightgrey-text modal-trigger" data-target="modal-login">Login</a>
-      </li>
-      // This shoud not be on the index.html
-      <li class="waves-effect waves-light">
-        <button id="login" class="btn teal lighten-1 z-depth-0 waves-effect waves-light">Logout</button>
-      </li>
-
-  <!-- Login Modal -->
+<!-- Login Modal -->
   <div id="modal-login" class="modal">
     <div class="modal-content">
       <h4>Login</h4><br /> <!-- Login Form -->
@@ -134,17 +124,15 @@ function initApp() {
 
               // If role is employer
               if (userDoc.data()['role'] == "employer"){
-                document.getElementById("navbar-left").innerHTML += `
-                <li class="waves-effect waves-light">
-                  <a href="/jobs.html" class="lightgrey-text" id="jobs" >JOBS</a>
-                </li>
-                `
+                if (location.pathname != "/jobs.html"){
+                  location.replace("/jobs.html");
+                }
               }
 
               // If role is employee
               if (userDoc.data()['role'] == "employee"){
-                if (location.pathname == "/jobs.html"){
-                  location.replace("/404.html");
+                if (location.pathname != "/users.html"){
+                  location.replace("/users.html");
                 }
               }
             }

@@ -25,4 +25,10 @@ document.addEventListener('DOMContentLoaded', function() { // Materialize Compon
 
   var parrs = document.querySelectorAll('.parallax');
   M.Parallax.init(parrs);
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.collapsible');
+    M.Collapsible.init(elems, options);
+  });
+
 });
