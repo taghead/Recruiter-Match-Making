@@ -33,9 +33,12 @@
 
 // Handles sign in and signout
 function toggleSignIn() {
+  //Sign Out
   if (firebase.auth().currentUser) {
     firebase.auth().signOut();
-  } else {
+  }
+  // Sign In 
+  else {
     var email = document.getElementById('email').value;
     var password = document.getElementById('password').value;
     if (email.length < 4) {
