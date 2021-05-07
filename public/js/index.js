@@ -34,6 +34,4 @@ document.addEventListener('DOMContentLoaded', function() { // Materialize Compon
       minLength: 1
     }
   });
-
-  console.log(document.getElementById("skills").M_Chips.chipsData)
 });
