@@ -70,10 +70,22 @@ firebase.auth().onAuthStateChanged(function (user) {
           document.querySelector('.progress').style.display = "none"; // Hide loading bar
           document.querySelector('.card').style.display = "block"; // Show profile
 
+          const userSkillChips = document.querySelector('#user-skills').M_Chips.chipsData;
+          // console.log(userSkillChips.length);
+          // console.log(userSkillChips[0].tag);
+          // console.log(userSkillChips[1].tag);
+          // console.log(details.skills);
+
+          
           // updateUserProfile form
           const updateUserProfile = document.querySelector('#update-user-profile');
           updateUserProfile.addEventListener('submit', (e) => {
             e.preventDefault();
+            // Declare array
+            let skills = [];
+            for (let i = 0; i < userSkillChips.length; i++) {
+              skills.push(userSkillChips[i].tag)
+            }
             firebase.firestore().collection('users').doc(doc.id).update({
               // Update Details
               name: document.querySelector('#user-name').value,
@@ -82,8 +94,8 @@ firebase.auth().onAuthStateChanged(function (user) {
               location: document.querySelector('#user-loc').value,
               biography: document.querySelector('#user-bio').value,
               experience: document.querySelector('#user-exp').value,
-
-              
+              // Update Skills
+              skills: skills,
             }).then(() => {
               location.reload(); // Reload Page
             }).catch(err => { console.log(err.message) });
