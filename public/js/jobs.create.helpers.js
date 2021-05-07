@@ -14,7 +14,7 @@ function createJobListing(){
       const users =  firebase.firestore().collection("users").get().then((userDoc) => {
         const res = userDoc.forEach((userDoc) => {
           if (userDoc.data()['email'] == user.email){
-            console.log(userDoc.data())
+            firebase.firestore().collection('users').doc(userDoc.id).set({ listings: firebase.firestore.FieldValue.arrayUnion("OK") }, { merge: true });
           }
         })
       })
