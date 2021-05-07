@@ -42,11 +42,69 @@
 
     <!-- User Details -->
     <div class="container" style="margin-top: 40px;">
-      <!-- Content loaded by Javascript -->
-      <!-- 
-          Use Javascript to inject HTML that contains a table with all the user details. It is dynamic because its based on the logged in user
-       -->
-       <div class="progress"> <!-- Loading bar -->
+      <div class="card white" style="display: none">
+        <div class="card-content">
+          <span class="card-title" id="user-title"> <!-- Content loaded by JavaScript --> </span>
+          <form id="update-user-profile">
+            <table>
+              <tr>
+                <th> Name: </th><td>
+                  <div class="input-field"> <!-- USER.NAME -->
+                    <input id="user-name" type="text" value="" required>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <th> Email: </th><td>
+                  <div class="input-field"> <!-- USER.EMAIL -->
+                    <input disabled id="user-email" type="email" value="" required>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <th> Date of Birth: </th><td>
+                  <div class="input-field"> <!-- USER.DOB -->
+                    <input id="user-dob" type="text" value="" required>
+                    <span class="helper-text">YYYY-MM-DD</span>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <th> Location: </th><td>
+                  <div class="input-field"> <!-- USER.LOCATION -->
+                    <input id="user-loc" type="text" value="" required>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <th> Biography: </th><td>
+                  <div class="input-field"> <!-- USER.BIO -->
+                    <textarea id="user-bio" class="materialize-textarea"></textarea>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <th> Experiences: </th><td>
+                  <div class="input-field"> <!-- USER.EXP -->
+                    <textarea id="user-exp" class="materialize-textarea"></textarea>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <th> Skills: </th><td>
+                  <div class="chips"> <!-- USER.SKILLS -->
+                    <input id="user-skills" class="input">
+                  </div>
+                </td>
+              </tr>
+            </table><br />
+            <button class="btn teal lighten-1 z-depth-0 waves-effect waves-light right"> Update </button><br />
+          </form>
+        </div>
+      </div>
+      
+      <!-- Content loaded by JavaScript -->
+      <div class="progress" style="display: block"> <!-- Loading bar -->
         <div class="indeterminate"></div>
       </div>
     </div>
@@ -65,6 +123,6 @@
     <!-- Custom Scripts -->
     <script src="js/index.js"></script>
     <script src="js/auth.helpers.js"></script>
-
+    <script src="js/users.component.js"></script>
   </body>
 </html>
