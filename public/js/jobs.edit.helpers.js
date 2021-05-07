@@ -42,3 +42,34 @@ document.getElementById('job-edit-list').onchange = function(){
     }
   })  
 }
+
+document.getElementById('job-edit-button').addEventListener('click', function(){
+  if(document.getElementById("edit-job-name").value[0] == " "){
+    alert("Cannot start wil space.")
+    return
+  }
+  if(document.getElementById("edit-job-name").value[0] == null){
+    alert("Name cannot be empty.")
+    return
+  }
+  if(document.getElementById("skillsEdit").M_Chips.chipsData.length == 0){
+    alert("Skills are empty")
+    return
+  }
+
+  let skillsLen = document.getElementById("skillsEdit").M_Chips.chipsData.length
+  let skills = [];
+  for ( let i=0; i<skillsLen;i++){
+    skills.push(document.getElementById("skillsEdit").M_Chips.chipsData[i]['tag'])
+  }
+  firebase.firestore().collection("listings").add({
+      jobName: document.getElementById("edit-job-name").value,
+      description: document.getElementById("edit-description").value,
+      skills: skills
+  })
+  document.getElementById("modal-edit").M_Modal.close()
+  setTimeout(() => {
+      document.getElementById("job-list").innerHTML = "";
+      updateJobList();
+    }, 1000);
+})
