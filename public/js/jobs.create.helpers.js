@@ -1,4 +1,10 @@
-document.getElementById('create-job-listing').addEventListener('click', createJobListing, false);
+document.getElementById('create-job-listing').addEventListener('click', createJobListing, function(event){
+  event.preventDefault()
+});
+
+document.getElementById("create-job-form").addEventListener('submit', function(event){
+  event.preventDefault()
+});
 
 function createJobListing(){
   if(document.getElementById("job-name").value[0] == " "){
@@ -36,5 +42,5 @@ function createJobListing(){
   setTimeout(() => {
       document.getElementById("job-list").innerHTML = "";
       updateJobList();
-    }, 2000);
+    }, 1000);
 }
