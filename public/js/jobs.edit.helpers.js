@@ -1,5 +1,11 @@
 document.getElementById('edit-job-open-modal').addEventListener('click', function(){
-  document.getElementById("job-edit-list").innerHTML = ''
+  document.getElementById("job-edit-list").innerHTML = '<option selected="selected">Select a job listing</option>'
+  document.getElementById('edit-job-name').value = ""
+  document.getElementById('edit-description').value = ""
+  skillsEditLen = document.getElementById("skillsEdit").M_Chips.chipsData.length
+  for ( let i=0; i<skillsEditLen;i++){
+    document.getElementById("skillsEdit").M_Chips.deleteChip(0)
+  }
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
       const users =  firebase.firestore().collection("users").get().then((userDoc) => {
