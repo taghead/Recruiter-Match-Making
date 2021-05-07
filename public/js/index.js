@@ -27,5 +27,11 @@ document.addEventListener('DOMContentLoaded', function() { // Materialize Compon
   M.Parallax.init(parrs);
 
   var chips = document.querySelectorAll('.chips');
-  M.Chips.init(chips);
+  M.Chips.init(chips, {
+    autocompleteOptions: {
+      data: skills,
+      limit: Infinity,
+      minLength: 1
+    }
+  });
 });
