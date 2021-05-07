@@ -74,7 +74,7 @@ function updateJobList(){
                     </div>
                   </li>
                 `
-                document.getElementById("job-list-progress").remove();
+                if(document.getElementById("job-list-progress")) document.getElementById("job-list-progress").remove();
               }
             }
           }

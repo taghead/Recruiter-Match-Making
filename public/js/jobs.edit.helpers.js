@@ -63,7 +63,7 @@ document.getElementById('job-edit-button').addEventListener('click', function(){
     skills.push(document.getElementById("skillsEdit").M_Chips.chipsData[i]['tag'])
   }
   var docRef = firebase.firestore().collection('listings').doc(document.getElementById("job-edit-list").value);
-  var updateTimestamp = docRef.update({
+  var update = docRef.update({
     jobName: document.getElementById("edit-job-name").value,
     description: document.getElementById("edit-description").value,
     skills: skills
@@ -71,7 +71,54 @@ document.getElementById('job-edit-button').addEventListener('click', function(){
 
   document.getElementById("modal-edit").M_Modal.close()
   setTimeout(() => {
-      document.getElementById("job-list").innerHTML = "";
+      document.getElementById("job-list").innerHTML = `
+        <div class="progress" id="job-list-progress">
+          <div class="indeterminate"></div>
+        </div>
+      `;
+      updateJobList();
+    }, 1000);
+})
+
+document.getElementById('job-edit-delete-button').addEventListener('click', function(){
+
+
+
+  firebase.auth().onAuthStateChanged(function (user) {
+    if (user) {
+      const users =  firebase.firestore().collection("users").get().then((userDoc) => {
+        const res = userDoc.forEach((userDoc) => {
+          if (userDoc.data()['email'] == user.email){
+            let listings = []
+            for (let i=0; i<userDoc.data()['listings'].length;i++){
+              if (document.getElementById("job-edit-list").value == userDoc.data()['listings'][i]){
+                firebase.firestore().collection("listings").doc(document.getElementById("job-edit-list").value).delete().then(() => {
+                  
+                }).catch((error) => {
+                    console.error("Error removing document: ", error);
+                });
+              }
+              else{
+                listings.push(document.getElementById("job-edit-list").value)
+              }
+            }
+            var docRef = firebase.firestore().collection('users').doc(userDoc.id);
+            var update = docRef.update({
+              listings: listings
+            });
+          }
+        })
+      })
+    }
+  })
+
+  document.getElementById("modal-edit").M_Modal.close()
+  setTimeout(() => {
+      document.getElementById("job-list").innerHTML = `
+        <div class="progress" id="job-list-progress">
+          <div class="indeterminate"></div>
+        </div>
+      `;
       updateJobList();
     }, 1000);
 })
