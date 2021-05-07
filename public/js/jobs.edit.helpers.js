@@ -99,7 +99,7 @@ document.getElementById('job-edit-delete-button').addEventListener('click', func
                 });
               }
               else{
-                listings.push(document.getElementById("job-edit-list").value)
+                listings.push(userDoc.data()['listings'][i])
               }
             }
             var docRef = firebase.firestore().collection('users').doc(userDoc.id);
