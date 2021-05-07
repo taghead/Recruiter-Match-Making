@@ -62,11 +62,13 @@ document.getElementById('job-edit-button').addEventListener('click', function(){
   for ( let i=0; i<skillsLen;i++){
     skills.push(document.getElementById("skillsEdit").M_Chips.chipsData[i]['tag'])
   }
-  firebase.firestore().collection("listings").add({
-      jobName: document.getElementById("edit-job-name").value,
-      description: document.getElementById("edit-description").value,
-      skills: skills
-  })
+  var docRef = firebase.firestore().collection('listings').doc(document.getElementById("job-edit-list").value);
+  var updateTimestamp = docRef.update({
+    jobName: document.getElementById("edit-job-name").value,
+    description: document.getElementById("edit-description").value,
+    skills: skills
+  });
+
   document.getElementById("modal-edit").M_Modal.close()
   setTimeout(() => {
       document.getElementById("job-list").innerHTML = "";
