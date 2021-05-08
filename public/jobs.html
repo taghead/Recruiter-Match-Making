@@ -30,7 +30,7 @@
             <a href="#" class="lightgrey-text modal-trigger" data-target="modal-create">CREATE</a>
           </li>
           <li class="waves-effect waves-light">
-            <a href="#" class="lightgrey-text modal-trigger" data-target="modal-edit">EDIT</a>
+            <a href="#" class="lightgrey-text modal-trigger" data-target="modal-edit" id="edit-job-open-modal">EDIT</a>
           </li>
         </ul>
 
@@ -89,15 +89,13 @@
         <h4>Edit Existing Job</h4><br />
 
         <!-- Load list of jobs -->
-        <form id="edit-job-list">
-          <select class="browser-default" id="job-edit-list">
-            <!-- Content loaded by Javascript -->
+        <select class="browser-default" id="job-edit-list">
+          <!-- Content loaded by Javascript -->
 
-            <!-- 
-              This area could also have a better solution as well
-            -->
-          </select>
-        </form>
+          <!-- 
+            This area could also have a better solution as well
+          -->
+        </select>
 
         <!-- Edit job details -->
         <form id="edit-job-form">
@@ -105,47 +103,41 @@
             <tr> <!-- Job Name -->
               <th> Job Name: </th><td>
                 <div class="left container input-field">
-                  <input type="text" id="job-name" placeholder="Name" required>
+                  <input type="text" id="edit-job-name" placeholder="Name" required>
                 </div>
               </td>
             </tr>
             <tr> <!-- Job Description -->
               <th> Job Description: </th><td>
                 <div class="left container input-field">
-                  <textarea id="description" class="materialize-textarea"></textarea>
+                  <textarea id="edit-description" class="materialize-textarea"></textarea>
                 </div>
               </td>
             </tr>
             <tr> <!-- Job Skills -->
               <th> Job Skills: </th><td>
-                <div class="left container">
-                  <select class="browser-default" id="skill-one">
-                    <option value="" disabled selected>Select Skill</option>
-                    <option value="">No Skill</option>
-                    <!-- Content loaded by Javascript -->
-                  </select>
+                <!-- Customizable input  -->
+                <div class="chips chips-autocomplete" id="skillsEdit">
+                  <input class="input">
                 </div>
-                <!-- 
-                  Going to keep this clear as there may be a better solution in the
-                  function. If we want an "unlimited" number of skills we can use a
-                  function to inject more html that contains a list of skills. Only
-                  issue I can see is potentially loading in "unlimited" skills for
-                  editing. This would require loops to load and save skills for edits
-                -->
               </td>
             </tr>
           </table>
         </form><br />
         <!-- Edit tour button-->
-        <button class="btn orange darken-2 z-depth-0 waves-effect waves-light right" onclick="editJob()"> Edit 
+        <button class="btn orange darken-2 z-depth-0 waves-effect waves-light right" id="job-edit-button"> Edit 
           <i class="material-icons right">edit</i>
         </button>
         <!-- Delete tour button -->
-        <button class="btn red darken-2 z-depth-0 waves-effect waves-light" onclick="deleteJob()"> Delete 
+        <button class="btn red darken-2 z-depth-0 waves-effect waves-light" id="job-edit-delete-button"> Delete 
           <i class="material-icons right">delete</i>
         </button>
       </div>
     </div>
+
+    <li class="waves-effect waves-light">
+      <button id="match" class="btn teal lighten-1 z-depth-0 waves-effect waves-light">Match Candidates</button>
+    </li>
 
     <table id="job-list-table" style="width:100%"></table> 
     <!-- Job List -->
@@ -178,5 +170,7 @@
     <script src="js/auth.helpers.js"></script>
     <script src="js/employer.jobs.component.js"></script>   
     <script src="js/jobs.create.helpers.js"></script>   
+    <script src="js/jobs.edit.helpers.js"></script>  
+    <script src="js/jobs.match.helpers.js"></script>
   </body>
 </html>

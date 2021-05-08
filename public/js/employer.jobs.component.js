@@ -22,7 +22,6 @@ function updateJobList(){
             // Iterate over listings the user posted
             var getJobCandidates = firebase.functions().httpsCallable('getJobCandidates');
             try {
-              console.log(userDoc.data()['listings'].length)
               if (userDoc.data()['listings'].length == "0"){
                 throw TypeError;
               }
@@ -55,7 +54,7 @@ function updateJobList(){
                       `
                       //Removes loading bar on last iteration
                       if ( i == userDoc.data()['listings'].length-1){
-                        document.getElementById("job-list-progress").remove();
+                        if(document.getElementById("job-list-progress")) document.getElementById("job-list-progress").remove();
                       }
                     })
                   });
@@ -75,7 +74,7 @@ function updateJobList(){
                     </div>
                   </li>
                 `
-                document.getElementById("job-list-progress").remove();
+                if(document.getElementById("job-list-progress")) document.getElementById("job-list-progress").remove();
               }
             }
           }
