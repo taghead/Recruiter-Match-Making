@@ -30,6 +30,15 @@ function updateJobList(){
                   getJobCandidates({ id: userDoc.data()['listings'][i] }).then((usersOwnedListings) => {
                     var getJobListing = firebase.functions().httpsCallable('getJobListing');
                     getJobListing({ id: userDoc.data()['listings'][i] }).then((listingDoc) => {
+                      let formattedCandidates = [];
+                      for ( i in listingDoc.data['candidates'] ){
+                        formattedCandidates.push(`
+                        <li class="waves-effect waves-light">
+                          <a href="#" class="lightgrey-text modal-trigger" data-target="modal-view-user" onclick="updateViewModal(this)" id="${listingDoc.data['candidates'][i]}">${listingDoc.data['candidates'][i]}</a>
+                        </li>
+                        `
+                        )
+                      }
                       // Write job listing details to html
                       document.getElementById("job-list").innerHTML += `
                       <li>
@@ -46,16 +55,14 @@ function updateJobList(){
                             <tr>
                               <td>${listingDoc.data['description']}</td>
                               <td>${listingDoc.data['skills']}</td>
-                              <td>${listingDoc.data['candidates']}</td>
+                              <td>${formattedCandidates}</td>
                             </tr>
                           </table>                      
                         </span></div>
                     </li>
                       `
                       //Removes loading bar on last iteration
-                      if ( i == userDoc.data()['listings'].length-1){
-                        if(document.getElementById("job-list-progress")) document.getElementById("job-list-progress").remove();
-                      }
+                      if(document.getElementById("job-list-progress")) document.getElementById("job-list-progress").remove();
                     })
                   });
                 }
@@ -120,6 +127,56 @@ function updateJobList(){
         })
       })
     }
+  })
+}
+
+function updateViewModal(email){
+  console.log()
+  const users =  firebase.firestore().collection("users").get().then((userDoc) => {
+    const res = userDoc.forEach((userDoc) => {
+      if(email.id == userDoc.data()['email']){
+        document.getElementById("modal-view-user").innerHTML = `
+          <table>
+          <tr>
+            <th> Name: </th><td>
+              ${userDoc.data()['name']}
+            </td>
+          </tr>
+          <tr>
+            <th> Email: </th><td>
+              ${userDoc.data()['email']}
+            </td>
+          </tr>
+          <tr>
+            <th> Date of Birth: </th><td>
+              ${userDoc.data()['dob']}
+            </td>
+          </tr>
+          <tr>
+            <th> Location: </th><td>
+              ${userDoc.data()['location']}
+            </td>
+          </tr>
+          <tr>
+            <th> Biography: </th><td>
+                ${userDoc.data()['biography']}"
+            </td>
+          </tr>
+          <tr>
+            <th> Experiences: </th><td>
+              ${userDoc.data()['experience']}
+            </td>
+          </tr>
+          <tr>
+            <th> Skills: </th><td>
+                ${userDoc.data()['skills']}
+            </td>
+          </tr>
+        </table><br />
+        <sup>Click outside of box to close</sup>
+        `
+      }
+    })
   })
 }
 
