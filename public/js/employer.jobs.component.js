@@ -100,55 +100,41 @@ function updateViewModal(email){
           <table>
           <tr>
             <th> Name: </th><td>
-              <div class="input-field"> <!-- USER.NAME -->
-                <input disabled type="text" value="${userDoc.data()['name']}" required>
-              </div>
+              ${userDoc.data()['name']}
             </td>
           </tr>
           <tr>
             <th> Email: </th><td>
-              <div class="input-field"> <!-- USER.EMAIL -->
-                <input disabled type="email" value="${userDoc.data()['email']}" required>
-              </div>
+              ${userDoc.data()['email']}
             </td>
           </tr>
           <tr>
             <th> Date of Birth: </th><td>
-              <div class="input-field"> <!-- USER.DOB -->
-                <input disabled type="text" value="${userDoc.data()['dob']}" required>
-                <span class="helper-text">YYYY-MM-DD</span>
-              </div>
+              ${userDoc.data()['dob']}
             </td>
           </tr>
           <tr>
             <th> Location: </th><td>
-              <div class="input-field"> <!-- USER.LOCATION -->
-                <input disabled type="text" value="${userDoc.data()['location']}" required>
-              </div>
+              ${userDoc.data()['location']}
             </td>
           </tr>
           <tr>
             <th> Biography: </th><td>
-              <div class="input-field"> <!-- USER.BIO -->
-                <textarea disabled value="${userDoc.data()['biography']}" class="materialize-textarea"></textarea>
-              </div>
+                ${userDoc.data()['biography']}"
             </td>
           </tr>
           <tr>
             <th> Experiences: </th><td>
-              <div class="input-field"> <!-- USER.EXP -->
-                <textarea disabled value="${userDoc.data()['experience']}"class="materialize-textarea"></textarea>
-              </div>
+              ${userDoc.data()['experience']}
             </td>
           </tr>
           <tr>
             <th> Skills: </th><td>
-              <div class="input-field"> <!-- USER.EXP -->
-                <textarea disabled value="${userDoc.data()['skills']}"class="materialize-textarea"></textarea>
-              </div>
+                ${userDoc.data()['skills']}
             </td>
           </tr>
         </table><br />
+        <sup>Click outside of box to close</sup>
         `
       }
     })
