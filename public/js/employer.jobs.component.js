@@ -46,7 +46,7 @@ function updateJobList(){
                             <tr>
                               <td>${listingDoc.data['description']}</td>
                               <td>${listingDoc.data['skills']}</td>
-                              <td>${listingDoc.data['candidates']}</td>
+                              <td>${candidatesArrayToHtml(listingDoc.data['candidates'])}</td>
                             </tr>
                           </table>                      
                         </span></div>
@@ -84,4 +84,24 @@ function updateJobList(){
   })
 }
 
+function candidatesArrayToHtml(candidates){
+  let innerHTML = ``
+  const users =  firebase.firestore().collection("users").get().then((userDoc) => {
+    const res = userDoc.forEach((userDoc) => {
+      count = 0;
+      for ( i in candidates ){
+        // console.log(userDoc.data()['email'])
+        // console.log(candidates[i])
+        if ( candidates[i].localeCompare(userDoc.data()['email']) ){
+          innerHTML =+ `OK`
+          if (count == candidates.length){
+            return innerHTML
+          }
+          count++
+        }
+      }
+    })
+  })
+  return "No potential candidates"
+}
 updateJobList()
