@@ -101,8 +101,21 @@ function updateJobList(){
             if (document.querySelector('#user-loc').value == 'undefined') {
               document.querySelector('#user-loc').value = "";
             }
-            
 
+            // updateUserProfile form
+            const updateUserProfile = document.querySelector('#update-user-profile');
+            updateUserProfile.addEventListener('submit', (e) => {
+              e.preventDefault();
+              firebase.firestore().collection('users').doc(userDoc.id).update({
+                // Update Details
+                name: document.querySelector('#user-name').value,
+                email: document.querySelector('#user-email').value,
+                company: document.querySelector('#user-comp').value,
+                location: document.querySelector('#user-loc').value,
+              }).then(() => {
+                location.reload(); // Reload Page
+              }).catch(err => { console.log(err.message) });
+            });
           }
         })
       })
