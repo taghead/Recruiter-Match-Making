@@ -77,6 +77,45 @@ function updateJobList(){
                 if(document.getElementById("job-list-progress")) document.getElementById("job-list-progress").remove();
               }
             }
+            // Load Profile
+            const details = userDoc.data();
+            console.log(details);
+
+            // Set elements
+            document.querySelector('#user-title').innerHTML = details.name;
+            document.querySelector('#user-name').value = details.name;
+            document.querySelector('#user-email').value = details.email;
+            document.querySelector('#user-comp').value = details.company;
+            document.querySelector('#user-loc').value = details.location;
+
+            // undefined Checks
+            if (document.querySelector('#user-title').innerHTML == 'undefined') {
+              document.querySelector('#user-title').innerHTML = details.email;
+            }
+            if (document.querySelector('#user-name').value == 'undefined') {
+              document.querySelector('#user-name').value = "";
+            }
+            if (document.querySelector('#user-comp').value == 'undefined') {
+              document.querySelector('#user-comp').value = "";
+            }
+            if (document.querySelector('#user-loc').value == 'undefined') {
+              document.querySelector('#user-loc').value = "";
+            }
+
+            // updateUserProfile form
+            const updateUserProfile = document.querySelector('#update-user-profile');
+            updateUserProfile.addEventListener('submit', (e) => {
+              e.preventDefault();
+              firebase.firestore().collection('users').doc(userDoc.id).update({
+                // Update Details
+                name: document.querySelector('#user-name').value,
+                email: document.querySelector('#user-email').value,
+                company: document.querySelector('#user-comp').value,
+                location: document.querySelector('#user-loc').value,
+              }).then(() => {
+                location.reload(); // Reload Page
+              }).catch(err => { console.log(err.message) });
+            });
           }
         })
       })
