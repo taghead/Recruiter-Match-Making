@@ -30,6 +30,15 @@ function updateJobList(){
                   getJobCandidates({ id: userDoc.data()['listings'][i] }).then((usersOwnedListings) => {
                     var getJobListing = firebase.functions().httpsCallable('getJobListing');
                     getJobListing({ id: userDoc.data()['listings'][i] }).then((listingDoc) => {
+                      let formattedCandidates = [];
+                      for ( i in listingDoc.data['candidates'] ){
+                        formattedCandidates.push(`
+                        <li class="waves-effect waves-light">
+                          <a href="#" class="lightgrey-text modal-trigger" data-target="modal-view-user" onclick="updateViewModal(this)" id="${listingDoc.data['candidates'][i]}">${listingDoc.data['candidates'][i]}</a>
+                        </li>
+                        `
+                        )
+                      }
                       // Write job listing details to html
                       document.getElementById("job-list").innerHTML += `
                       <li>
@@ -46,16 +55,14 @@ function updateJobList(){
                             <tr>
                               <td>${listingDoc.data['description']}</td>
                               <td>${listingDoc.data['skills']}</td>
-                              <td>${candidatesArrayToHtml(listingDoc.data['candidates'])}</td>
+                              <td>${formattedCandidates}</td>
                             </tr>
                           </table>                      
                         </span></div>
                     </li>
                       `
                       //Removes loading bar on last iteration
-                      if ( i == userDoc.data()['listings'].length-1){
-                        if(document.getElementById("job-list-progress")) document.getElementById("job-list-progress").remove();
-                      }
+                      if(document.getElementById("job-list-progress")) document.getElementById("job-list-progress").remove();
                     })
                   });
                 }
@@ -84,24 +91,68 @@ function updateJobList(){
   })
 }
 
-function candidatesArrayToHtml(candidates){
-  let innerHTML = ``
+function updateViewModal(email){
+  console.log()
   const users =  firebase.firestore().collection("users").get().then((userDoc) => {
     const res = userDoc.forEach((userDoc) => {
-      count = 0;
-      for ( i in candidates ){
-        // console.log(userDoc.data()['email'])
-        // console.log(candidates[i])
-        if ( candidates[i].localeCompare(userDoc.data()['email']) ){
-          innerHTML =+ `OK`
-          if (count == candidates.length){
-            return innerHTML
-          }
-          count++
-        }
+      if(email.id == userDoc.data()['email']){
+        document.getElementById("modal-view-user").innerHTML = `
+          <table>
+          <tr>
+            <th> Name: </th><td>
+              <div class="input-field"> <!-- USER.NAME -->
+                <input disabled type="text" value="${userDoc.data()['name']}" required>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th> Email: </th><td>
+              <div class="input-field"> <!-- USER.EMAIL -->
+                <input disabled type="email" value="${userDoc.data()['email']}" required>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th> Date of Birth: </th><td>
+              <div class="input-field"> <!-- USER.DOB -->
+                <input disabled type="text" value="${userDoc.data()['dob']}" required>
+                <span class="helper-text">YYYY-MM-DD</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th> Location: </th><td>
+              <div class="input-field"> <!-- USER.LOCATION -->
+                <input disabled type="text" value="${userDoc.data()['location']}" required>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th> Biography: </th><td>
+              <div class="input-field"> <!-- USER.BIO -->
+                <textarea disabled value="${userDoc.data()['biography']}" class="materialize-textarea"></textarea>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th> Experiences: </th><td>
+              <div class="input-field"> <!-- USER.EXP -->
+                <textarea disabled value="${userDoc.data()['experience']}"class="materialize-textarea"></textarea>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th> Skills: </th><td>
+              <div class="input-field"> <!-- USER.EXP -->
+                <textarea disabled value="${userDoc.data()['skills']}"class="materialize-textarea"></textarea>
+              </div>
+            </td>
+          </tr>
+        </table><br />
+        `
       }
     })
   })
-  return "No potential candidates"
 }
+
 updateJobList()
