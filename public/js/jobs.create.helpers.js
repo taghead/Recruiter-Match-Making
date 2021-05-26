@@ -39,8 +39,15 @@ function createJobListing(){
     }
   })
   document.getElementById("modal-create").M_Modal.close()
+
+  document.getElementById("job-list").innerHTML = `
+    <div class="progress" id="job-list-progress">
+      <div class="indeterminate"></div>
+    </div>
+  `;
   setTimeout(() => {
-      document.getElementById("job-list").innerHTML = "";
-      updateJobList();
-    }, 1000);
+    var matchUsers = firebase.functions().httpsCallable('matchUsers');
+    matchUsers().then((result) => {});
+      location.reload();
+    }, 3000);
 }

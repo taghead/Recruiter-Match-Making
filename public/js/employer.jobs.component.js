@@ -1,7 +1,4 @@
 /* This component requires the following html
-      
-    <table id="job-list-table" style="width:100%"></table> 
-
     <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-auth.js"></script>
@@ -41,25 +38,25 @@ function updateJobList(){
                       }
                       // Write job listing details to html
                       document.getElementById("job-list").innerHTML += `
-                      <li>
-                        <div class="collapsible-header">
-                          <i class="material-icons">filter_drama</i>${listingDoc.data['jobName']}
-                        </div>
-                        <div class="collapsible-body white lighten-2"><span>
-                          <table>
-                            <tr>
-                              <th>Description</th>
-                              <th>Skills</th>
-                              <th>Candidates</th>
-                            </tr>
-                            <tr>
-                              <td>${listingDoc.data['description']}</td>
-                              <td>${listingDoc.data['skills']}</td>
-                              <td>${formattedCandidates}</td>
-                            </tr>
-                          </table>                      
-                        </span></div>
-                    </li>
+                        <li>
+                          <div class="collapsible-header">
+                            <i class="material-icons">filter_drama</i>${listingDoc.data['jobName']}
+                          </div>
+                          <div class="collapsible-body white lighten-2"><span>
+                            <table>
+                              <tr>
+                                <th>Description</th><td>${listingDoc.data['description']}</td>
+                              </tr>
+                              <tr>
+                                <th>Skills</th><td>${listingDoc.data['skills']}</td>
+                              </tr>
+                              <tr>
+                                <th>Candidates</th><td>${formattedCandidates}</td>
+                              </tr>
+                            </table>                      
+                            </span>
+                          </div>
+                        </li>
                       `
                       //Removes loading bar on last iteration
                       if(document.getElementById("job-list-progress")) document.getElementById("job-list-progress").remove();
@@ -70,14 +67,10 @@ function updateJobList(){
             }
             catch (e) {
               if (e instanceof TypeError || e.name == "TypeError") {
-                let zeroListings = ["(◡﹏◡✿) There are no listings here. I forgot to mention you had to make a listing.",
-                "Beep bop beep no listings detected [✖﹏✖] go make some.",
-                "(ㄒoㄒ) oh noooo I need to make some listings.",
-                "ಥ_ಥ Listings why have you failed me. Oh wait I just forgot to make some :P."]
                 document.getElementById("job-list").innerHTML = `
                   <li>
                     <div class="collapsible-header">
-                      <i class="material-icons">filter_drama</i>${zeroListings[Math.floor(Math.random() * zeroListings.length)]} Normally listings will be here... 
+                      <i class="material-icons">error</i>You have no listings. Head to Create to make a new listing!
                     </div>
                   </li>
                 `
@@ -136,44 +129,47 @@ function updateViewModal(email){
     const res = userDoc.forEach((userDoc) => {
       if(email.id == userDoc.data()['email']){
         document.getElementById("modal-view-user").innerHTML = `
-          <table>
-          <tr>
-            <th> Name: </th><td>
-              ${userDoc.data()['name']}
-            </td>
-          </tr>
-          <tr>
-            <th> Email: </th><td>
-              ${userDoc.data()['email']}
-            </td>
-          </tr>
-          <tr>
-            <th> Date of Birth: </th><td>
-              ${userDoc.data()['dob']}
-            </td>
-          </tr>
-          <tr>
-            <th> Location: </th><td>
-              ${userDoc.data()['location']}
-            </td>
-          </tr>
-          <tr>
-            <th> Biography: </th><td>
-                ${userDoc.data()['biography']}"
-            </td>
-          </tr>
-          <tr>
-            <th> Experiences: </th><td>
-              ${userDoc.data()['experience']}
-            </td>
-          </tr>
-          <tr>
-            <th> Skills: </th><td>
-                ${userDoc.data()['skills']}
-            </td>
-          </tr>
-        </table><br />
-        <sup>Click outside of box to close</sup>
+          <div class="modal-content">
+            <h4>${userDoc.data()['name']}</h4>
+            <table>
+              <tr>
+                <th> Name: </th><td>
+                ${userDoc.data()['name']}
+                </td>
+              </tr>
+              <tr>
+                <th> Email: </th><td>
+                  ${userDoc.data()['email']}
+                </td>
+              </tr>
+              <tr>
+                <th> Date of Birth: </th><td>
+                  ${userDoc.data()['dob']}
+                </td>
+              </tr>
+              <tr>
+                <th> Location: </th><td>
+                  ${userDoc.data()['location']}
+                </td>
+              </tr>
+              <tr>
+                <th> Biography: </th><td>
+                    ${userDoc.data()['biography']}
+                </td>
+              </tr>
+              <tr>
+                <th> Experiences: </th><td>
+                  ${userDoc.data()['experience']}
+                </td>
+              </tr>
+              <tr>
+                <th> Skills: </th><td>
+                    ${userDoc.data()['skills']}
+                </td>
+              </tr>
+            </table><br />
+            <span>Click outside the modal to close</span>
+          </div>
         `
       }
     })

@@ -24,8 +24,8 @@ exports.matchUsers = functions.https.onCall( async (data, context) => {
                 const res = userDoc.forEach((userDoc) => {
                     if (userDoc.data()['skills']){
 
-                        skillWanted = userDoc.data()['skills']
-                        skillAquire = listingDoc.data()['skills']
+                        skillWanted = listingDoc.data()['skills']
+                        skillAquire = userDoc.data()['skills']
                         skillsMatch = []
 
                         for ( i in skillWanted ){

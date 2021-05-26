@@ -71,19 +71,12 @@ document.getElementById('job-edit-button').addEventListener('click', function(){
 
   document.getElementById("modal-edit").M_Modal.close()
   setTimeout(() => {
-      document.getElementById("job-list").innerHTML = `
-        <div class="progress" id="job-list-progress">
-          <div class="indeterminate"></div>
-        </div>
-      `;
       updateJobList();
+      location.reload();
     }, 1000);
 })
 
 document.getElementById('job-edit-delete-button').addEventListener('click', function(){
-
-
-
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
       const users =  firebase.firestore().collection("users").get().then((userDoc) => {
@@ -114,11 +107,7 @@ document.getElementById('job-edit-delete-button').addEventListener('click', func
 
   document.getElementById("modal-edit").M_Modal.close()
   setTimeout(() => {
-      document.getElementById("job-list").innerHTML = `
-        <div class="progress" id="job-list-progress">
-          <div class="indeterminate"></div>
-        </div>
-      `;
       updateJobList();
+      location.reload();
     }, 1000);
 })
