@@ -1,0 +1,29 @@
+{
+  "name": "group-01-match-making-system-cosc2408-",
+  "version": "1.0.0",
+  "description": " Group-01-Match-Making-System-COSC2408-",
+  "main": "firebase emulators:start",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "firebase emulators:start",
+    "deploy": "firebase deploy",
+    "login": "firebase login"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Group-01-Match-Making-System-COSC2408/Group-01-Match-Making-System-COSC2408-.git"
+  },
+  "author": "Andrew Chander, Lachlan Atkinson, Maurice Ghantous, Siang Hii and Cameron Tavelli",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Group-01-Match-Making-System-COSC2408/Group-01-Match-Making-System-COSC2408-/issues"
+  },
+  "homepage": "https://github.com/Group-01-Match-Making-System-COSC2408/Group-01-Match-Making-System-COSC2408-#readme",
+  "devDependencies": {
+    "firebase-admin": "^9.8.0",
+    "firebase-functions": "^3.14.1",
+    "firebase-tools": "^9.11.0"
+  }
+}
