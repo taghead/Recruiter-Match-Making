@@ -1,0 +1,41 @@
+.nav-wrapper li:hover {
+  background-color: #186a62;
+}
+.input-field input:focus + label {
+  color: #186a62 !important;
+}
+.input-field input:focus {
+  border-bottom: 1px solid #186a62 !important;
+  box-shadow: 0 1px 0 0 #186a62 !important
+}
+.doc-table th {
+  float: left;
+}
+.doc-table td {
+  float: right;
+}
+.progress {
+  background-color: #80cbc4; /* teal lighten-3 */
+}
+.progress .indeterminate {
+  background-color: #186a62; /* teal lighten-1 */
+}
+#invalid {
+  display:none;
+  color: #cc0000;
+  margin-left: 20px;
+}
+#invalid-user {
+  color: #cc0000;
+}
+.parallax-container {
+  position: relative;
+  overflow: hidden;
+  
+}
+.responsive-img {
+  object-fit: cover;
+}
+p {
+  font-size: 18px;
+}
