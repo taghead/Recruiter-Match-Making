@@ -19,7 +19,6 @@ firebase.auth().onAuthStateChanged(function (user) {
           // Load profile
           const details = doc.data();
           // console.log(details);
-          
           // Set elements
           document.querySelector('#user-title').innerHTML = details.name;
           document.querySelector('#user-name').value = details.name;
@@ -75,7 +74,6 @@ firebase.auth().onAuthStateChanged(function (user) {
           // console.log(userSkillChips[0].tag);
           // console.log(userSkillChips[1].tag);
           // console.log(details.skills);
-
           
           // updateUserProfile form
           const updateUserProfile = document.querySelector('#update-user-profile');
@@ -83,7 +81,9 @@ firebase.auth().onAuthStateChanged(function (user) {
             e.preventDefault();
             // Declare array
             let skills = [];
+            // Iterates over skills 
             for (let i = 0; i < userSkillChips.length; i++) {
+              // Pushes skill to array
               skills.push(userSkillChips[i].tag)
             }
             firebase.firestore().collection('users').doc(doc.id).update({

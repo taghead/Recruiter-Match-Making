@@ -10,11 +10,13 @@
 */
 
 function updateJobList(){
+  // Gets signed in user
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
       // Get signed in users document
       const users =  firebase.firestore().collection("users").get().then((userDoc) => {
         const res = userDoc.forEach((userDoc) => {
+          // If signed in email matches document email
           if (userDoc.data()['email'] == user.email){
             // Iterate over listings the user posted
             var getJobCandidates = firebase.functions().httpsCallable('getJobCandidates');
@@ -22,6 +24,7 @@ function updateJobList(){
               if (userDoc.data()['listings'].length == "0"){
                 throw TypeError;
               }
+              // Gets signed in user job listings
               if ( userDoc.data()['listings'] ){
                 for ( let i=0; i < userDoc.data()['listings'].length; i++ ){
                   getJobCandidates({ id: userDoc.data()['listings'][i] }).then((usersOwnedListings) => {
@@ -65,6 +68,7 @@ function updateJobList(){
                 }
               }
             }
+            // Catch error
             catch (e) {
               if (e instanceof TypeError || e.name == "TypeError") {
                 document.getElementById("job-list").innerHTML = `
@@ -104,6 +108,7 @@ function updateJobList(){
 
             // updateUserProfile form
             const updateUserProfile = document.querySelector('#update-user-profile');
+            // Listens for submit event
             updateUserProfile.addEventListener('submit', (e) => {
               e.preventDefault();
               firebase.firestore().collection('users').doc(userDoc.id).update({
@@ -124,10 +129,13 @@ function updateJobList(){
 }
 
 function updateViewModal(email){
-  console.log()
+  // console.log()
+  // Gets signed in user doc
   const users =  firebase.firestore().collection("users").get().then((userDoc) => {
     const res = userDoc.forEach((userDoc) => {
+      // If signed in user matches user document
       if(email.id == userDoc.data()['email']){
+        // Inject HTML
         document.getElementById("modal-view-user").innerHTML = `
           <div class="modal-content">
             <h4>${userDoc.data()['name']}</h4>
