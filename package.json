@@ -7,7 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "firebase emulators:start",
+    "start": "firebase emulators:start",
     "deploy": "firebase deploy",
     "login": "firebase login"
   },
