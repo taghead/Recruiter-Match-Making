@@ -15,11 +15,8 @@
 - Run `npm login`
 - Run `npm deploy`
 
-### Local Testing 
-- Install [Docker](https://www.docker.com/products/docker-desktop) 
-- Run `npx qawolf create http://localhost:5000 testName`
+### More docs
 
-Read more here [/docs/FIREBASE.md](/docs/FIREBASE.md)
-
-### Git Workflow 
-Please read [/CONTRIBUTIONS.md](/CONTRIBUTIONS.md)
+- [Testing](/docs/TESTING.md)
+- [Firebase](/docs/FIREBASE.md)
+- [Contribution](/CONTRIBUTIONS.md)
