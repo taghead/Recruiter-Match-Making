@@ -9,7 +9,11 @@
   "scripts": {
     "start": "firebase emulators:start",
     "deploy": "firebase deploy",
-    "test": "firebase emulators:exec \"jest ./tests/e2e/",
+    "test": "run-script-os",
+    "test:windows": "firebase emulators:exec \"jest --forceExit --detectOpenHandles\" | findstr /v /R \"\\<hosting \\<firestore \\<auth \\<hub \\<emulators \\<functions\"",
+    "test:nix": "firebase emulators:exec \"jest --forceExit --detectOpenHandles\" | grep -v \"hosting*\\|firestore*\\|auth\\|hub\\|emulators\\|functions\"",
+    "posttest": "npm run-script --silent kill",
+    "kill": "kill-port 9099 5001 8080 5000 4400",
     "login": "firebase login"
   },
   "repository": {
@@ -28,6 +32,8 @@
     "firebase-tools": "^9.11.0",
     "jest": "^27.0.6",
     "jest-puppeteer": "^5.0.4",
-    "puppeteer": "^10.2.0"
+    "kill-port-process": "^3.0.0",
+    "puppeteer": "^10.2.0",
+    "run-script-os": "^1.1.6"
   }
 }

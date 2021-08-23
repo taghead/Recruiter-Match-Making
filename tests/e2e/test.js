@@ -1,8 +1,8 @@
 const puppeteer = require('puppeteer');
 
 const browserArgs = {
-    headless: false,
-    slowMo: 10
+    // headless: false,
+    // slowMo: 10
 }
 
 describe('Recruiter', () => {
@@ -25,16 +25,24 @@ describe('Recruiter', () => {
         
         await page.click('button[id="login"]');
 
-        page
+        await page
             .waitForSelector('a[id="account-details-icon"]')
             .then(() => page.click('a[id="account-details-icon"]'));
 
-        page
-            .waitForSelector('h4[id="user-title"]', 50)
+        await page
+            .waitForSelector('div[class="card-content"]')
             .then(() => {
-                const loggedInAs = page.$eval('h4[id="user-title"]', el => console.log(el));
+                const loggedInAs = page.$eval('div[class="card-content"]', e => e.innerHTML);
                 expect(loggedInAs).toBe('recruiter@company.com');
             })
 
+        // await page
+        //     .waitForSelector('[id="user-title"]')
+        //     .then(() => {
+        //         const loggedInAs = page.$eval('[id="user-title"]', e => e);
+        //         expect(loggedInAs).toBe('recruiter@company.com');
+        //     });
+
+        // browser.close();
     });
 });

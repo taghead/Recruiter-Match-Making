@@ -9,6 +9,7 @@
 - Run  `npm install`
 
 ### Local Development
+- Install [Java JDK](https://www.oracle.com/au/java/technologies/javase-downloads.html)
 - To serve the website locally on [https://localhost:5000](https://localhost:5000) run `npm start`
 
 ### Deploying to Firebase
