@@ -38,6 +38,5 @@
     "run-script-os": "^1.1.6",
     "chrome": "^0.1.0"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }

@@ -5,6 +5,19 @@ const browserArgs = {
     // slowMo: 10
 }
 
+// Global Data
+const recruiterEmail = "recruiter@company.com";
+const recruiterPassword = "123123TA123123";
+
+// Global References
+const loginBtn = '[data-target="modal-login"]';
+const emailInput = 'input[type="email"]';
+const passwordInput = 'input[type="password"]';
+const roleDropdown = 'select[id="role"';
+const signUpBtn = 'button[id="sign-up"]';
+const signUpBtnRecruiterRole = 'employer';
+const accountDetailsBtn = 'a[id="account-details-icon"]'
+
 describe('Recruiter', () => {
     beforeAll(async () => {
         await page.goto('http://localhost:5000');
@@ -13,36 +26,26 @@ describe('Recruiter', () => {
     it('recruiter should be signed up', async () => {
 
         const browser = await puppeteer.launch(browserArgs);
-
         const page = await browser.newPage();
 
         await page.goto('http://localhost:5000');
-        await page.click('[data-target="modal-login"]');
-        await page.type('input[type="email"]', "recruiter@company.com");
-        await page.type('input[type="password"]', "123123TA123123");
-        await page.select('select[id="role"', 'employer');
-        // await page.click('button[id="sign-up"]');
-        
-        await page.click('button[id="login"]');
+        await page.click(loginBtn);
+        await page.$eval(emailInput, el => el.value = recruiterEmail);
+        await page.$eval(passwordInput, el => el.value = recruiterPassword);
+        await page.select(roleDropdown, signUpBtnRecruiterRole);
+        await page.click(signUpBtn);
 
         await page
-            .waitForSelector('a[id="account-details-icon"]')
-            .then(() => page.click('a[id="account-details-icon"]'));
+            .waitForSelector(accountDetailsBtn)
+            .then(() => page.click(accountDetailsBtn));
 
-        await page
-            .waitForSelector('div[class="card-content"]')
-            .then(() => {
-                const loggedInAs = page.$eval('div[class="card-content"]', e => e.innerHTML);
-                expect(loggedInAs).toBe('recruiter@company.com');
-            })
+        await page.waitForFunction(
+            `document.getElementById('user-title').innerText.includes("recruiter@company.com")`,
+          );
 
-        // await page
-        //     .waitForSelector('[id="user-title"]')
-        //     .then(() => {
-        //         const loggedInAs = page.$eval('[id="user-title"]', e => e);
-        //         expect(loggedInAs).toBe('recruiter@company.com');
-        //     });
+        const loggedInAs = await page.$eval('[id="user-title"]', e => e.innerHTML);
+        expect(loggedInAs).toBe(recruiterEmail);
 
-        // browser.close();
+        browser.close();
     });
 });
