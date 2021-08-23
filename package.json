@@ -35,9 +35,9 @@
     "jest-puppeteer": "^5.0.4",
     "kill-port-process": "^3.0.0",
     "puppeteer": "^10.2.0",
-    "run-script-os": "^1.1.6"
+    "run-script-os": "^1.1.6",
+    "chrome": "^0.1.0"
   },
   "dependencies": {
-    "chrome": "^0.1.0"
   }
 }
