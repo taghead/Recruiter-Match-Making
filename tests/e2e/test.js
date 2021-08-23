@@ -20,18 +20,16 @@ const accountDetailsBtn = 'a[id="account-details-icon"]'
 
 describe('Recruiter', () => {
     beforeAll(async () => {
-        await page.goto('http://localhost:5000');
     });
-
+    
     it('recruiter should be signed up', async () => {
-
         const browser = await puppeteer.launch(browserArgs);
         const page = await browser.newPage();
-
         await page.goto('http://localhost:5000');
+
         await page.click(loginBtn);
-        await page.$eval(emailInput, el => el.value = recruiterEmail);
-        await page.$eval(passwordInput, el => el.value = recruiterPassword);
+        await page.type(emailInput, recruiterEmail);
+        await page.type(passwordInput, recruiterPassword);
         await page.select(roleDropdown, signUpBtnRecruiterRole);
         await page.click(signUpBtn);
 
