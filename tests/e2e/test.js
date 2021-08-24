@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer');
 const firebaseConfig = require('../../firebase.json');
 
 const browserArgs = {
-    headless: false,
+    // headless: false,
     // slowMo: 10
 }
 
@@ -24,6 +24,7 @@ const recruiterAccountDetailsBtn = '[id="account-details-icon"]'
 const recruiterAccountDetailsEmail = '[id="user-title"]';
 const recruiterAccountDetailsEmailID = recruiterAccountDetailsEmail.split("\"")[1];
 const recruiterAccountDetailsInputUsername = '[id="user-name"]'; 
+const recruiterAccountDetailsInputUsernameID = recruiterAccountDetailsInputUsername.split("\"")[1]; 
 const recruiterAccountDetailsInputCompany = '[id="user-comp"]';
 const recruiterAccountDetailsInputLocation = '[id="user-loc"]';
 const recruiterAccountDetailsUpdateBtn = 'button[id="user-update-btn"]';
@@ -58,10 +59,31 @@ describe('Recruiter', () => {
     });
 
     it('added account details', async () => {
-        await page.type(recruiterAccountDetailsInputUsername, 'John F Kenny'); 
-        await page.type(recruiterAccountDetailsInputCompany, 'Federal Kenny');
-        await page.type(recruiterAccountDetailsInputLocation, 'America, Sanos');
+        const userName = 'John F Kenny';
+        const company = 'Federal Kenny';
+        const location = 'America, Sanos';
+
+        await page.type(recruiterAccountDetailsInputUsername, userName); 
+        await page.type(recruiterAccountDetailsInputCompany, company);
+        await page.type(recruiterAccountDetailsInputLocation, location);
         await page.click(recruiterAccountDetailsUpdateBtn);
+
+        await page.waitForTimeout(500);
+        await page.waitForSelector(recruiterAccountDetailsBtn);
+        await page.click(recruiterAccountDetailsBtn);
+        
+        await page.waitForFunction(
+            `document.getElementById('${recruiterAccountDetailsInputUsernameID}').value.includes('${userName}')`
+        );
+
+        const userNameIs = await page.$eval(recruiterAccountDetailsInputUsername, e => e.value);
+        expect(userNameIs).toBe(userName);
+
+        const userCompanyIs = await page.$eval(recruiterAccountDetailsInputCompany, e => e.value);
+        expect(userCompanyIs).toBe(company);
+
+        const userLocationIs = await page.$eval(recruiterAccountDetailsInputLocation, e => e.value);
+        expect(userLocationIs).toBe(location);
 
     });
 
@@ -73,5 +95,5 @@ describe('Recruiter', () => {
         
     // });
 
-    //afterAll(() => browser.close());
+    afterAll(() => browser.close());
 });
