@@ -20,16 +20,20 @@ const passwordInput = 'input[type="password"]';
 const roleDropdown = 'select[id="role"';
 const signUpBtn = 'button[id="sign-up"]';
 const signUpBtnRecruiterRole = 'employer';
-const accountDetailsBtn = 'a[id="account-details-icon"]'
+const accountDetailsBtn = '[id="account-details-icon"]'
 const accountDetailsEmail = '[id="user-title"]';
+const accountDetailsEmailID = accountDetailsEmail.split("\"")[1];
 
 describe('Recruiter', () => {
+    let browser;
+    let page;
+    
     beforeAll(async () => {
+        browser = await puppeteer.launch(browserArgs);
+        page = await browser.newPage();
     });
 
     it('should be signed up', async () => {
-        const browser = await puppeteer.launch(browserArgs);
-        const page = await browser.newPage();
         await page.goto(baseUrl);
 
         await page.click(loginBtn);
@@ -38,16 +42,16 @@ describe('Recruiter', () => {
         await page.select(roleDropdown, signUpBtnRecruiterRole);
         await page.click(signUpBtn);
 
-        await page.waitForSelector(accountDetailsBtn)
+        await page.waitForSelector(accountDetailsBtn);
         await page.click(accountDetailsBtn);
 
         await page.waitForFunction(
-            `document.querySelector('${accountDetailsEmail}').innerText.includes('${recruiterEmail}')`,
-          );
+            `document.getElementById('${accountDetailsEmailID}').innerText.includes('${recruiterEmail}')`
+        );
 
         const loggedInAs = await page.$eval(accountDetailsEmail, e => e.innerHTML);
         expect(loggedInAs).toBe(recruiterEmail);
-
-        browser.close();
     });
+
+    afterAll(() => browser.close());
 });
