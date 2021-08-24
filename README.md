@@ -1,28 +1,23 @@
-# Group-01-Match-Making-System-COSC2408-
+# <div align="center"> Recruiter Match Making <br/> [<img src="https://img.shields.io/badge/Firebase-red.svg">](https://firebase.google.com/) [<img src="https://img.shields.io/badge/NodeJS-green.svg">](https://nodejs.org/) </div>
 
-## Technologies Involved
 
-Cloud services:
-- [Google Cloud Platform](https://cloud.google.com/) (reCAPTCHA)
-- [Firebase](https://firebase.google.com/) (Database/Datastore, Authentication and Hosting)
 
-Frameworks:
-- [MaterializeCSS](https://materializecss.com/)
 
-## Getting started for development:
 
-### Setup Firebase CLI
+## Getting started for development
 - Install [NodeJS LTS](https://nodejs.org/en/download/)
-- Run `npm install -g firebase-tools firebase-admin firebase-functions` ( or `npm install` and use scripts in package.json)
-- Run `firebase login`
+- Run  `npm install`
 
-Noteable Commands:
-- `firebase deploy` - Deploy web application to production
-- `firebase emulators:start` - Test web application locally [https://localhost:5000](https://localhost:5000)
+### Local Development
+- Install [Java JDK](https://www.oracle.com/au/java/technologies/javase-downloads.html)
+- To serve the website locally on [https://localhost:5000](https://localhost:5000) run `npm start`
 
-*Make these commands are run in the projects root directory*
+### Deploying to Firebase
+- Run `npm login`
+- Run `npm deploy`
 
-Read more here [/docs/FIREBASE.md](/docs/FIREBASE.md)
+### More docs
 
-### Git Workflow 
-Please read [/CONTRIBUTIONS.md](/CONTRIBUTIONS.md)
+- [Testing](/docs/TESTING.md)
+- [Firebase](/docs/FIREBASE.md)
+- [Contribution](/CONTRIBUTIONS.md)
