@@ -53,5 +53,17 @@ describe('Recruiter', () => {
         expect(loggedInAs).toBe(recruiterEmail);
     });
 
+    // it('added account details', async () => {
+        
+    // });
+
+    // it('should be logged out', async () => {
+        
+    // });
+
+    // it('should be logged in', async () => {
+        
+    // });
+
     afterAll(() => browser.close());
 });
