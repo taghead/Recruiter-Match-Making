@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer');
 const firebaseConfig = require('../../firebase.json');
 
 const browserArgs = {
-    // headless: false,
+    headless: false,
     // slowMo: 10
 }
 
@@ -20,9 +20,13 @@ const passwordInput = 'input[type="password"]';
 const roleDropdown = 'select[id="role"';
 const signUpBtn = 'button[id="sign-up"]';
 const signUpBtnRecruiterRole = 'employer';
-const accountDetailsBtn = '[id="account-details-icon"]'
-const accountDetailsEmail = '[id="user-title"]';
-const accountDetailsEmailID = accountDetailsEmail.split("\"")[1];
+const recruiterAccountDetailsBtn = '[id="account-details-icon"]'
+const recruiterAccountDetailsEmail = '[id="user-title"]';
+const recruiterAccountDetailsEmailID = recruiterAccountDetailsEmail.split("\"")[1];
+const recruiterAccountDetailsInputUsername = '[id="user-name"]'; 
+const recruiterAccountDetailsInputCompany = '[id="user-comp"]';
+const recruiterAccountDetailsInputLocation = '[id="user-loc"]';
+const recruiterAccountDetailsUpdateBtn = 'button[id="user-update-btn"]';
 
 describe('Recruiter', () => {
     let browser;
@@ -42,20 +46,24 @@ describe('Recruiter', () => {
         await page.select(roleDropdown, signUpBtnRecruiterRole);
         await page.click(signUpBtn);
 
-        await page.waitForSelector(accountDetailsBtn);
-        await page.click(accountDetailsBtn);
+        await page.waitForSelector(recruiterAccountDetailsBtn);
+        await page.click(recruiterAccountDetailsBtn);
 
         await page.waitForFunction(
-            `document.getElementById('${accountDetailsEmailID}').innerText.includes('${recruiterEmail}')`
+            `document.getElementById('${recruiterAccountDetailsEmailID}').innerText.includes('${recruiterEmail}')`
         );
 
-        const loggedInAs = await page.$eval(accountDetailsEmail, e => e.innerHTML);
+        const loggedInAs = await page.$eval(recruiterAccountDetailsEmail, e => e.innerHTML);
         expect(loggedInAs).toBe(recruiterEmail);
     });
 
-    // it('added account details', async () => {
-        
-    // });
+    it('added account details', async () => {
+        await page.type(recruiterAccountDetailsInputUsername, 'John F Kenny'); 
+        await page.type(recruiterAccountDetailsInputCompany, 'Federal Kenny');
+        await page.type(recruiterAccountDetailsInputLocation, 'America, Sanos');
+        await page.click(recruiterAccountDetailsUpdateBtn);
+
+    });
 
     // it('should be logged out', async () => {
         
@@ -65,5 +73,5 @@ describe('Recruiter', () => {
         
     // });
 
-    afterAll(() => browser.close());
+    //afterAll(() => browser.close());
 });
