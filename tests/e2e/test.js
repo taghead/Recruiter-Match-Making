@@ -12,6 +12,9 @@ const baseUrl = "http://localhost:"+firebaseConfig.emulators.hosting.port;
 // Global Data
 const recruiterEmail = "recruiter@company.com";
 const recruiterPassword = "123123TA123123";
+const recruiterUserName = 'John F Kenny';
+const recruiterCompany = 'Federal Kenny';
+const recruiterLocation = 'America, Sanos';
 
 // Global References
 const loginModalBtn = '[data-target="modal-login"]';
@@ -62,30 +65,26 @@ describe('Recruiter', () => {
     }, 6000);
 
     it('added account details', async () => {
-        const userName = 'John F Kenny';
-        const company = 'Federal Kenny';
-        const location = 'America, Sanos';
-
-        await page.type(recruiterAccountDetailsInputUsername, userName); 
-        await page.type(recruiterAccountDetailsInputCompany, company);
-        await page.type(recruiterAccountDetailsInputLocation, location);
+        await page.type(recruiterAccountDetailsInputUsername, recruiterUserName); 
+        await page.type(recruiterAccountDetailsInputCompany, recruiterCompany);
+        await page.type(recruiterAccountDetailsInputLocation, recruiterLocation);
         await page.click(recruiterAccountDetailsUpdateBtn);
 
         await page.waitForTimeout(1000);
         await page.click(recruiterAccountDetailsBtn);
         
         await page.waitForFunction(
-            `document.getElementById('${recruiterAccountDetailsInputUsernameID}').value.includes('${userName}')`
+            `document.getElementById('${recruiterAccountDetailsInputUsernameID}').value.includes('${recruiterUserName}')`
         );
 
         const userNameIs = await page.$eval(recruiterAccountDetailsInputUsername, e => e.value);
-        expect(userNameIs).toBe(userName);
+        expect(userNameIs).toBe(recruiterUserName);
 
         const userCompanyIs = await page.$eval(recruiterAccountDetailsInputCompany, e => e.value);
-        expect(userCompanyIs).toBe(company);
+        expect(userCompanyIs).toBe(recruiterCompany);
 
         const userLocationIs = await page.$eval(recruiterAccountDetailsInputLocation, e => e.value);
-        expect(userLocationIs).toBe(location);
+        expect(userLocationIs).toBe(recruiterLocation);
 
     }, 6000);
 
@@ -119,14 +118,20 @@ describe('Recruiter', () => {
         await page.waitForTimeout(1000);
         await page.waitForSelector(recruiterAccountDetailsBtn);
         await page.click(recruiterAccountDetailsBtn);
-        await page.waitForTimeout(1000);
+        await page.waitForTimeout(2000);
 
         await page.waitForFunction(
-            `document.getElementById('${recruiterAccountDetailsInputEmailID}').value.includes('${recruiterEmail}')`
+            `document.getElementById('${recruiterAccountDetailsInputUsernameID}').value.includes('${recruiterUserName}')`
         );
 
-        const emailLoggedInWith = await page.$eval(recruiterAccountDetailsInputEmail, e => e.value);
-        expect(emailLoggedInWith).toBe(recruiterEmail);
+        const userNameIs = await page.$eval(recruiterAccountDetailsInputUsername, e => e.value);
+        expect(userNameIs).toBe(recruiterUserName);
+
+        const userCompanyIs = await page.$eval(recruiterAccountDetailsInputCompany, e => e.value);
+        expect(userCompanyIs).toBe(recruiterCompany);
+
+        const userLocationIs = await page.$eval(recruiterAccountDetailsInputLocation, e => e.value);
+        expect(userLocationIs).toBe(recruiterLocation);
     }, 6000);
 
     afterAll(() => browser.close());
