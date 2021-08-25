@@ -3,7 +3,7 @@ const firebaseConfig = require('../../firebase.json');
 
 const browserArgs = {
     headless: false,
-    // slowMo: 10
+    // slowMo: 250
 }
 
 // Defines
@@ -14,8 +14,8 @@ const recruiterEmail = "recruiter@company.com";
 const recruiterPassword = "123123TA123123";
 
 // Global References
-const loginBtn = '[data-target="modal-login"]';
-const logoutBtn = '[id="login"]';
+const loginModalBtn = '[data-target="modal-login"]';
+const loginOrLogoutButton = '[id="login"]';
 const emailInput = 'input[type="email"]';
 const passwordInput = 'input[type="password"]';
 const roleDropdown = 'select[id="role"';
@@ -28,6 +28,7 @@ const recruiterAccountDetailsInputUsername = '[id="user-name"]';
 const recruiterAccountDetailsInputUsernameID = recruiterAccountDetailsInputUsername.split("\"")[1]; 
 const recruiterAccountDetailsInputCompany = '[id="user-comp"]';
 const recruiterAccountDetailsInputLocation = '[id="user-loc"]';
+const recruiterAccountDetailsInputEmail = '[id="user-email]"';
 const recruiterAccountDetailsUpdateBtn = 'button[id="user-update-btn"]';
 
 describe('Recruiter', () => {
@@ -42,7 +43,7 @@ describe('Recruiter', () => {
     it('should be signed up', async () => {
         await page.goto(baseUrl);
 
-        await page.click(loginBtn);
+        await page.click(loginModalBtn);
         await page.type(emailInput, recruiterEmail);
         await page.type(passwordInput, recruiterPassword);
         await page.select(roleDropdown, signUpBtnRecruiterRole);
@@ -57,7 +58,7 @@ describe('Recruiter', () => {
 
         const loggedInAs = await page.$eval(recruiterAccountDetailsEmail, e => e.innerHTML);
         expect(loggedInAs).toBe(recruiterEmail);
-    });
+    }, 6000);
 
     it('added account details', async () => {
         const userName = 'John F Kenny';
@@ -85,7 +86,7 @@ describe('Recruiter', () => {
         const userLocationIs = await page.$eval(recruiterAccountDetailsInputLocation, e => e.value);
         expect(userLocationIs).toBe(location);
 
-    });
+    }, 6000);
 
     it('should be logged out', async () => {
         // Close Account Details
@@ -94,22 +95,36 @@ describe('Recruiter', () => {
         
         // Cick logout
         await page.waitForTimeout(1000);
-        await page.waitForSelector(logoutBtn);
-        await page.click(logoutBtn);
+        await page.waitForSelector(loginOrLogoutButton);
+        await page.click(loginOrLogoutButton);
 
         // Wait for page to update as it logs out
         await page.waitForTimeout(1000);
-        await page.waitForSelector(loginBtn);
+        await page.waitForSelector(loginModalBtn);
         
         // Check if logged out
-        const loginStatus = await page.$eval(loginBtn, e => e.innerHTML);
+        const loginStatus = await page.$eval(loginModalBtn, e => e.innerText);
         expect(loginStatus).toBe('Login');
 
-    });
+    }, 6000);
 
-    // it('should be logged in', async () => {
-        
-    // });
+    it('should be signed in with existing credentials', async () => {
+        await page.click(loginModalBtn);
+        await page.type(emailInput, recruiterEmail);
+        await page.type(passwordInput, recruiterPassword);
+        await page.select(roleDropdown, signUpBtnRecruiterRole);
+        await page.click(loginOrLogoutButton);
+
+        await page.waitForSelector(recruiterAccountDetailsBtn);
+        await page.click(recruiterAccountDetailsBtn);
+
+        await page.waitForFunction(
+            `document.getElementById('${recruiterAccountDetailsInputEmail}').innerText.includes('${recruiterEmail}')`
+        );
+
+        const emailLoggedInWith = await page.$eval(recruiterAccountDetailsInputEmail, e => e.innerText);
+        expect(emailLoggedInWith).toBe(recruiterEmail);
+    }, 6000);
 
     afterAll(() => browser.close());
 });
