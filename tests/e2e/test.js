@@ -29,6 +29,7 @@ const recruiterAccountDetailsInputUsernameID = recruiterAccountDetailsInputUsern
 const recruiterAccountDetailsInputCompany = '[id="user-comp"]';
 const recruiterAccountDetailsInputLocation = '[id="user-loc"]';
 const recruiterAccountDetailsInputEmail = '[id="user-email]"';
+const recruiterAccountDetailsInputEmailID = recruiterAccountDetailsInputEmail.split("\"")[1];
 const recruiterAccountDetailsUpdateBtn = 'button[id="user-update-btn"]';
 
 describe('Recruiter', () => {
@@ -115,14 +116,16 @@ describe('Recruiter', () => {
         await page.select(roleDropdown, signUpBtnRecruiterRole);
         await page.click(loginOrLogoutButton);
 
+        await page.waitForTimeout(1000);
         await page.waitForSelector(recruiterAccountDetailsBtn);
         await page.click(recruiterAccountDetailsBtn);
+        await page.waitForTimeout(1000);
 
         await page.waitForFunction(
-            `document.getElementById('${recruiterAccountDetailsInputEmail}').innerText.includes('${recruiterEmail}')`
+            `document.getElementById('${recruiterAccountDetailsInputEmailID}').value.includes('${recruiterEmail}')`
         );
 
-        const emailLoggedInWith = await page.$eval(recruiterAccountDetailsInputEmail, e => e.innerText);
+        const emailLoggedInWith = await page.$eval(recruiterAccountDetailsInputEmail, e => e.value);
         expect(emailLoggedInWith).toBe(recruiterEmail);
     }, 6000);
 
