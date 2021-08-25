@@ -8,6 +8,7 @@
   },
   "scripts": {
     "start": "firebase emulators:start",
+    "poststart": "npm run posttest",
     "deploy": "firebase deploy",
     "test": "run-script-os",
     "test:windows": "firebase emulators:exec \"jest --forceExit --detectOpenHandles\" | findstr /v /R \"\\<hosting \\<firestore \\<auth \\<hub \\<emulators \\<functions\"",

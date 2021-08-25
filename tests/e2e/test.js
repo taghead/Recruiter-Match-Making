@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer');
 const firebaseConfig = require('../../firebase.json');
 
 const browserArgs = {
-    // headless: false,
+    headless: false,
     // slowMo: 10
 }
 
@@ -15,6 +15,7 @@ const recruiterPassword = "123123TA123123";
 
 // Global References
 const loginBtn = '[data-target="modal-login"]';
+const logoutBtn = '[id="login"]';
 const emailInput = 'input[type="email"]';
 const passwordInput = 'input[type="password"]';
 const roleDropdown = 'select[id="role"';
@@ -68,8 +69,7 @@ describe('Recruiter', () => {
         await page.type(recruiterAccountDetailsInputLocation, location);
         await page.click(recruiterAccountDetailsUpdateBtn);
 
-        await page.waitForTimeout(500);
-        await page.waitForSelector(recruiterAccountDetailsBtn);
+        await page.waitForTimeout(1000);
         await page.click(recruiterAccountDetailsBtn);
         
         await page.waitForFunction(
@@ -87,9 +87,25 @@ describe('Recruiter', () => {
 
     });
 
-    // it('should be logged out', async () => {
+    it('should be logged out', async () => {
+        // Close Account Details
+        await page.click(recruiterAccountDetailsUpdateBtn);
+        await page.waitForTimeout(1000);
         
-    // });
+        // Cick logout
+        await page.waitForTimeout(1000);
+        await page.waitForSelector(logoutBtn);
+        await page.click(logoutBtn);
+
+        // Wait for page to update as it logs out
+        await page.waitForTimeout(1000);
+        await page.waitForSelector(loginBtn);
+        
+        // Check if logged out
+        const loginStatus = await page.$eval(loginBtn, e => e.innerHTML);
+        expect(loginStatus).toBe('Login');
+
+    });
 
     // it('should be logged in', async () => {
         
