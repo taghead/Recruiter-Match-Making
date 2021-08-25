@@ -14,8 +14,8 @@
     "test:windows": "firebase emulators:exec \"jest --forceExit --detectOpenHandles\" | findstr /v /R \"\\<hosting \\<firestore \\<auth \\<hub \\<emulators \\<functions\"",
     "test:nix": "firebase emulators:exec \"jest --forceExit --detectOpenHandles\" | grep -v \"hosting*\\|firestore*\\|auth\\|hub\\|emulators\\|functions\"",
     "posttest": "run-script-os",
-    "posttest:windows": "kill-port -s 9099 5001 8080 5000 4400 > nul 2>&1",
-    "posttest:nix": "kill-port -s 9099 5001 8080 5000 4400 > /dev/null 2>&1",
+    "posttest:windows": "kill-port -s 9099 5001 8080 5000 4400 4000> nul 2>&1",
+    "posttest:nix": "kill-port -s 9099 5001 8080 5000 4400 4000> /dev/null 2>&1",
     "login": "firebase login"
   },
   "repository": {
