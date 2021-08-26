@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer');
 const firebaseConfig = require('../../firebase.json');
 
 const browserArgs = {
-    headless: false,
+    headless: true,
     // slowMo: 250
 }
 
