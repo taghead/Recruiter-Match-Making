@@ -4,8 +4,8 @@ const firebaseConfig = require('../../firebase.json');
 
 // Browser Arguments
 browserHeadlessArg = true;
-if ( process.env.TEST_HEADLESS == 'FALSE' ||
-     process.env.TEST_HEADLESS == 'false' ){
+if ( process.env.DISABLE_HEADLESS_TESTS == 'TRUE' ||
+     process.env.DISABLE_HEADLESS_TESTS == 'true' ){
     browserHeadlessArg = false;
 }
 
