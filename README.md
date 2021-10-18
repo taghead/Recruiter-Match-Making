@@ -1,16 +1,14 @@
 # <div align="center"> Recruiter Match Making <br/> [<img src="https://img.shields.io/badge/Firebase-red.svg">](https://firebase.google.com/) [<img src="https://img.shields.io/badge/NodeJS-green.svg">](https://nodejs.org/) </div>
 
-
-
-
-
 ## Getting started for development
 - Install [NodeJS LTS](https://nodejs.org/en/download/)
 - Run  `npm install`
+- Ensure the date in [/firestore.rules](/firestore.rules) has not passed, if it has change it to a later date.
 
 ### Local Development
 - Install [Java JDK](https://www.oracle.com/au/java/technologies/javase-downloads.html)
-- To serve the website locally on [https://localhost:5000](https://localhost:5000) run `npm start`
+- Install modules by running `npm install`
+- To serve the website locally on [https://localhost:5000](http://localhost:5000) run `npm start`
 
 ### Deploying to Firebase
 - Ensure the [.firebaserc](/.firebaserc) has your project name.
