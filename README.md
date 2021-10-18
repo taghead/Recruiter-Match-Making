@@ -5,7 +5,7 @@
 - Run  `npm install`
 - Ensure the date in [/firestore.rules](/firestore.rules) has not passed, if it has change it to a later date.
 
-### Local Development
+### Serving Locally
 - Install [Java JDK](https://www.oracle.com/au/java/technologies/javase-downloads.html)
 - Install modules by running `npm install`
 - To serve the website locally on [https://localhost:5000](http://localhost:5000) run `npm start`
@@ -37,5 +37,6 @@ var firebaseConfig = {
 ### More docs
 
 - [Testing](/docs/TESTING.md)
+- [Environment Variables](/docs/ENVIRONMENT.md)
 - [Firebase](/docs/FIREBASE.md)
 - [Contribution](/CONTRIBUTIONS.md)
