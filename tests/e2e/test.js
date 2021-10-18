@@ -5,14 +5,8 @@ const firebaseConfig = require('../../firebase.json');
 // Browser Arguments
 let browserHeadlessArg = true;
 
-switch(process.env.DISABLE_HEADLESS_TESTS) {
-    case 'TRUE':
-        browserHeadlessArg = false;
-        break;
-
-    case 'true':
-        browserHeadlessArg = false;
-        break;
+if ( process.env.DISABLE_HEADLESS_TESTS.toLowerCase() == 'true' ){
+    browserHeadlessArg = false;
 }
 
 const browserArgs = {
@@ -148,5 +142,9 @@ describe('Recruiter', () => {
         expect(userLocationIs).toBe(recruiterLocation);
     }, 6000);
 
-    afterAll(() => browser.close());
+    afterAll(() => {
+        if ( process.env.PERSISTANT_BROWSER_TESTS.toLowerCase() != 'true' ) {
+            browser.close();
+        }
+    });
 });
