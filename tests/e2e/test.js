@@ -62,7 +62,7 @@ describe('Recruiter', () => {
 
         const loggedInAs = await page.$eval(recruiterAccountDetailsEmail, e => e.innerHTML);
         expect(loggedInAs).toBe(recruiterEmail);
-    }, 6000);
+    }, 20000);
 
     it('added account details', async () => {
         await page.type(recruiterAccountDetailsInputUsername, recruiterUserName); 
