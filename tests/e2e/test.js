@@ -3,14 +3,21 @@ const puppeteer = require('puppeteer');
 const firebaseConfig = require('../../firebase.json');
 
 // Browser Arguments
-browserHeadlessArg = true;
-if ( process.env.DISABLE_HEADLESS_TESTS == 'TRUE' ||
-     process.env.DISABLE_HEADLESS_TESTS == 'true' ){
-    browserHeadlessArg = false;
+let browserHeadlessArg = true;
+
+switch(process.env.DISABLE_HEADLESS_TESTS) {
+    case 'TRUE':
+        browserHeadlessArg = false;
+        break;
+
+    case 'true':
+        browserHeadlessArg = false;
+        break;
 }
 
 const browserArgs = {
-    headless: browserHeadlessArg
+    headless: browserHeadlessArg,
+    slowMo: process.env.SLOW_SPEED_TESTS
 }
 
 // Defines
