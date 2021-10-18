@@ -24,6 +24,10 @@ const recruiterUserName = 'John F Kenny';
 const recruiterCompany = 'Federal Kenny';
 const recruiterLocation = 'America, Sanos';
 
+const recruiterJobListingName = "Worker Needed - Pizza Cook";
+const recruiterJobListingDescription = "Must be able to make pizzas";
+const recruiterJobListingSkills = ["Cook","Cleaning","Cashiering"];
+
 // Global References
 const loginModalBtn = '[data-target="modal-login"]';
 const loginOrLogoutButton = '[id="login"]';
@@ -42,6 +46,11 @@ const recruiterAccountDetailsInputLocation = '[id="user-loc"]';
 const recruiterAccountDetailsInputEmail = '[id="user-email]"';
 const recruiterAccountDetailsInputEmailID = recruiterAccountDetailsInputEmail.split("\"")[1];
 const recruiterAccountDetailsUpdateBtn = 'button[id="user-update-btn"]';
+const recruiterCreateJobModalBtn = '[data-target="modal-create"]';
+const recruiterCreateJobDetailsInputName = '[id="job-name"]';
+const recruiterCreateJobDetailsInputDescription = '[id="description"]';
+const recruiterCreateJobDetailsInputSkills = '[id="skills-input"]';
+const recruiterCreateJobDetailsInputSkillsElement = '[id="skills"]';
 
 describe('Recruiter', () => {
     let browser;
@@ -61,7 +70,10 @@ describe('Recruiter', () => {
         await page.select(roleDropdown, signUpBtnRecruiterRole);
         await page.click(signUpBtn);
 
+        await page.waitForTimeout(1000);
+
         await page.waitForSelector(recruiterAccountDetailsBtn);
+        await page.waitForTimeout(1000);
         await page.click(recruiterAccountDetailsBtn);
 
         await page.waitForFunction(
@@ -141,6 +153,24 @@ describe('Recruiter', () => {
         const userLocationIs = await page.$eval(recruiterAccountDetailsInputLocation, e => e.value);
         expect(userLocationIs).toBe(recruiterLocation);
     }, 6000);
+
+    it('should be able to create job listing', async () => {
+        await page.click(recruiterAccountDetailsBtn);
+        await page.waitForTimeout(1000);
+        await page.click(recruiterCreateJobModalBtn);
+        await page.waitForTimeout(1000);
+
+        await page.type(recruiterCreateJobDetailsInputName, recruiterJobListingName);
+        await page.type(recruiterCreateJobDetailsInputDescription, recruiterJobListingDescription);
+
+        for ( i in recruiterJobListingSkills ) {
+            await page.type(recruiterCreateJobDetailsInputSkills, recruiterJobListingSkills[i]);
+            await page.waitForTimeout(1000);
+            page.click(`${recruiterCreateJobDetailsInputSkillsElement} > ul`);
+            await page.waitForTimeout(1000);
+        }
+
+    }, 12000);
 
     afterAll(() => {
         if ( process.env.PERSISTANT_BROWSER_TESTS.toLowerCase() != 'true' ) {
