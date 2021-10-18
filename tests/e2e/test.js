@@ -1,9 +1,16 @@
+require('dotenv').config();
 const puppeteer = require('puppeteer');
 const firebaseConfig = require('../../firebase.json');
 
+// Browser Arguments
+browserHeadlessArg = true;
+if ( process.env.TEST_HEADLESS == 'FALSE' ||
+     process.env.TEST_HEADLESS == 'false' ){
+    browserHeadlessArg = false;
+}
+
 const browserArgs = {
-    headless: true,
-    // slowMo: 250
+    headless: browserHeadlessArg
 }
 
 // Defines
