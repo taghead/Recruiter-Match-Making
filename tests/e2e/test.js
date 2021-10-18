@@ -28,6 +28,9 @@ const recruiterJobListingName = "Worker Needed - Pizza Cook";
 const recruiterJobListingDescription = "Must be able to make pizzas";
 const recruiterJobListingSkills = ["Cook","Cleaning","Cashiering"];
 
+const recruiteeEmail = "recruitee@company.com";
+const recruiteePassword = "123123TA123123";
+
 // Global References
 const loginModalBtn = '[data-target="modal-login"]';
 const loginOrLogoutButton = '[id="login"]';
@@ -35,6 +38,9 @@ const emailInput = 'input[type="email"]';
 const passwordInput = 'input[type="password"]';
 const roleDropdown = 'select[id="role"';
 const signUpBtn = 'button[id="sign-up"]';
+const signUpBtnRecruiteeRole = 'employee';
+const recruiteeAccountDetailsEmail = '[id="user-email"]';
+const recruiteeAccountDetailsEmailID = recruiteeAccountDetailsEmail.split("\"")[1];
 const signUpBtnRecruiterRole = 'employer';
 const recruiterAccountDetailsBtn = '[id="account-details-icon"]'
 const recruiterAccountDetailsEmail = '[id="user-title"]';
@@ -43,7 +49,7 @@ const recruiterAccountDetailsInputUsername = '[id="user-name"]';
 const recruiterAccountDetailsInputUsernameID = recruiterAccountDetailsInputUsername.split("\"")[1]; 
 const recruiterAccountDetailsInputCompany = '[id="user-comp"]';
 const recruiterAccountDetailsInputLocation = '[id="user-loc"]';
-const recruiterAccountDetailsInputEmail = '[id="user-email]"';
+const recruiterAccountDetailsInputEmail = '[id="user-email"]';
 const recruiterAccountDetailsInputEmailID = recruiterAccountDetailsInputEmail.split("\"")[1];
 const recruiterAccountDetailsUpdateBtn = 'button[id="user-update-btn"]';
 const recruiterCreateJobModalBtn = '[data-target="modal-create"]';
@@ -53,6 +59,42 @@ const recruiterCreateJobDetailsInputSkills = '[id="skills-input"]';
 const recruiterCreateJobDetailsInputSkillsElement = '[id="skills"]';
 const recruiterCreateJobDetailsInputSkillsBtn = '[id="create-job-listing"]';
 const recruiterPageJobList = '[id="job-list"]';
+
+
+describe('Recruitee', () => {
+    let browser;
+    let page;
+    
+    beforeAll(async () => {
+        browser = await puppeteer.launch(browserArgs);
+        page = await browser.newPage();
+    });
+
+    it('should be signed up', async () => {
+        await page.goto(baseUrl);
+
+        await page.click(loginModalBtn);
+        await page.type(emailInput, recruiteeEmail);
+        await page.type(passwordInput, recruiteePassword);
+        await page.select(roleDropdown, signUpBtnRecruiteeRole);
+        await page.click(signUpBtn);
+
+        await page.waitForSelector(recruiteeAccountDetailsEmail);
+        await page.waitForTimeout(1000);
+        await page.waitForFunction(
+            `document.getElementById('${recruiteeAccountDetailsEmailID}').value.includes('${recruiteeEmail}')`
+        );
+
+        const loggedInAs = await page.$eval(recruiteeAccountDetailsEmail, e => e.value);
+        expect(loggedInAs).toBe(recruiteeEmail);
+    }, 15000);
+
+    afterAll(() => {
+        if ( process.env.PERSISTANT_BROWSER_TESTS.toLowerCase() != 'true' ) {
+            browser.close();
+        }
+    });
+});
 
 describe('Recruiter', () => {
     let browser;
@@ -111,20 +153,16 @@ describe('Recruiter', () => {
     }, 6000);
 
     it('should be logged out', async () => {
-        // Close Account Details
         await page.click(recruiterAccountDetailsUpdateBtn);
         await page.waitForTimeout(1000);
-        
-        // Cick logout
+
         await page.waitForTimeout(1000);
         await page.waitForSelector(loginOrLogoutButton);
         await page.click(loginOrLogoutButton);
 
-        // Wait for page to update as it logs out
         await page.waitForTimeout(1000);
         await page.waitForSelector(loginModalBtn);
         
-        // Check if logged out
         const loginStatus = await page.$eval(loginModalBtn, e => e.innerText);
         expect(loginStatus).toBe('Login');
 
