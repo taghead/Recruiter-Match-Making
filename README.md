@@ -40,3 +40,6 @@ var firebaseConfig = {
 - [Environment Variables](/docs/ENVIRONMENT.md)
 - [Firebase](/docs/FIREBASE.md)
 - [Contribution](/CONTRIBUTIONS.md)
+
+### Preview
+# <div align="center">  ![/docs/img/preview.gif](/docs/img/preview.gif) </div>
