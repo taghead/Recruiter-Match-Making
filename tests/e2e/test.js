@@ -30,6 +30,12 @@ const recruiterJobListingSkills = ["Cook","Cleaning","Cashiering"];
 
 const recruiteeEmail = "recruitee@company.com";
 const recruiteePassword = "123123TA123123";
+const recruiteeUserName = "Kenny F John";
+const recruiteeDob = "21-09-1988";
+const recruiteeLocation = "Australia, Sydney, Sunshine Coast";
+const recruiteeBio = "Lorem ipsum dol ipset executor el set not";
+const recruiteeExperience = "I used to work at pizza pizza mama pizza.";
+const recruiteeSkills = ["Cook","Cleaning","Cashiering"];
 
 // Global References
 const loginModalBtn = '[data-target="modal-login"]';
@@ -38,9 +44,21 @@ const emailInput = 'input[type="email"]';
 const passwordInput = 'input[type="password"]';
 const roleDropdown = 'select[id="role"';
 const signUpBtn = 'button[id="sign-up"]';
+
 const signUpBtnRecruiteeRole = 'employee';
 const recruiteeAccountDetailsEmail = '[id="user-email"]';
 const recruiteeAccountDetailsEmailID = recruiteeAccountDetailsEmail.split("\"")[1];
+const recruiteeAccountDetailsInputUsername = '[id="user-name"]'; 
+const recruiteeAccountDetailsInputUsernameID = recruiteeAccountDetailsInputUsername.split("\"")[1]; 
+const recruiteeAccountDetailsInputDob = '[id="user-dob"]'; 
+const recruiteeAccountDetailsInputDobID = recruiteeAccountDetailsInputDob.split("\"")[1]; 
+const recruiteeAccountDetailsInputLocation = '[id="user-loc"]';
+const recruiteeAccountDetailsInputBio = '[id="user-bio"]';
+const recruiteeAccountDetailsInputExperience = '[id="user-exp"]';
+const recruiteeAccountDetailsInputSkills = '[id="user-skills-input"]';
+const recruiteeAccountDetailsInputSkillsElement = '[id="user-skills"]';
+const recruiteeAccountDetailsBtn = '[id="user-update-btn"]';
+
 const signUpBtnRecruiterRole = 'employer';
 const recruiterAccountDetailsBtn = '[id="account-details-icon"]'
 const recruiterAccountDetailsEmail = '[id="user-title"]';
@@ -73,6 +91,7 @@ describe('Recruitee', () => {
     it('should be signed up', async () => {
         await page.goto(baseUrl);
 
+        await page.waitForSelector(loginModalBtn);
         await page.click(loginModalBtn);
         await page.type(emailInput, recruiteeEmail);
         await page.type(passwordInput, recruiteePassword);
@@ -88,6 +107,23 @@ describe('Recruitee', () => {
         const loggedInAs = await page.$eval(recruiteeAccountDetailsEmail, e => e.value);
         expect(loggedInAs).toBe(recruiteeEmail);
     }, 15000);
+
+    it('should be able to fill in user details', async () => {
+        await page.type(recruiteeAccountDetailsInputUsername, recruiteeUserName);
+        await page.type(recruiteeAccountDetailsInputDob, recruiteeDob);
+        await page.type(recruiteeAccountDetailsInputLocation, recruiteeLocation);
+        await page.type(recruiteeAccountDetailsInputBio, recruiteeBio);
+        await page.type(recruiteeAccountDetailsInputExperience, recruiteeExperience);
+
+        for ( i in recruiteeSkills ) {
+            await page.type(recruiteeAccountDetailsInputSkills, recruiteeSkills[i]);
+            await page.waitForTimeout(1000);
+            page.click(`${recruiteeAccountDetailsInputSkillsElement} > ul`);
+            await page.waitForTimeout(1000);
+        }
+
+        await page.click(recruiteeAccountDetailsBtn);
+    });
 
     afterAll(() => {
         if ( process.env.PERSISTANT_BROWSER_TESTS.toLowerCase() != 'true' ) {
@@ -108,6 +144,7 @@ describe('Recruiter', () => {
     it('should be signed up', async () => {
         await page.goto(baseUrl);
 
+        await page.waitForSelector(loginModalBtn);
         await page.click(loginModalBtn);
         await page.type(emailInput, recruiterEmail);
         await page.type(passwordInput, recruiterPassword);
