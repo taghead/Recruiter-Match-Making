@@ -77,6 +77,7 @@ const recruiterCreateJobDetailsInputSkills = '[id="skills-input"]';
 const recruiterCreateJobDetailsInputSkillsElement = '[id="skills"]';
 const recruiterCreateJobDetailsInputSkillsBtn = '[id="create-job-listing"]';
 const recruiterPageJobList = '[id="job-list"]';
+const recruiterPageUpdateCandidates = '[id="match"]';
 
 
 describe('Recruitee', () => {
@@ -278,6 +279,18 @@ describe('Recruiter', () => {
             .toBe(recruiterJobListingName);
 
     }, 40000);
+
+    it('should be able to create job listing', async () => {
+        await page.waitForTimeout(5000);
+        await page.click(recruiterPageUpdateCandidates);
+        await page.waitForTimeout(5000);
+        await page.click(recruiterPageJobList);
+
+        const candidateIs = await page.$eval(recruiterPageJobList, e => e.innerHTML);        
+        expect(candidateIs.match(recruiteeEmail)[0]).toBe(recruiteeEmail);
+
+    }, 20000);
+    
 
     afterAll(() => {
         if ( process.env.PERSISTANT_BROWSER_TESTS.toLowerCase() != 'true' ) {
