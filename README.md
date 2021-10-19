@@ -18,11 +18,11 @@ Note thatall data is non persistant unless deployed to Firebase.
 
 ```docker build . -t recruiter-match-making```
 
-```docker run --name recmatmak -d -p 5000:5000 recruiter-match-making```
+```docker run --name recruiter-match-making -d -p 5000:5000/udp -p 5000:5000/tcp recruiter-match-making```
 
 Alternativly run using Docker compose instead.
 
-```docker-compose up -d```
+```docker-compose up -d --build```
 
 ### Deploying to Firebase
 
