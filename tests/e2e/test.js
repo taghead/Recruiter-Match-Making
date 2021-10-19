@@ -123,7 +123,30 @@ describe('Recruitee', () => {
         }
 
         await page.click(recruiteeAccountDetailsBtn);
-    });
+        await page.waitForTimeout(3000);
+
+        const recruiteeNameIs = await page.$eval(recruiteeAccountDetailsInputUsername, e => e.value);
+        expect(recruiteeNameIs).toBe(recruiteeUserName);
+
+        const recruiteeDobIs = await page.$eval(recruiteeAccountDetailsInputDob, e => e.value);
+        expect(recruiteeDobIs).toBe(recruiteeDob);
+
+        const recruiteeLocationIs = await page.$eval(recruiteeAccountDetailsInputLocation, e => e.value);
+        expect(recruiteeLocationIs).toBe(recruiteeLocation);
+
+        const recruiteeBioIs = await page.$eval(recruiteeAccountDetailsInputBio, e => e.value);
+        expect(recruiteeBioIs).toBe(recruiteeBio);
+
+        const recruiteeExperienceIs = await page.$eval(recruiteeAccountDetailsInputExperience, e => e.value);
+        expect(recruiteeExperienceIs).toBe(recruiteeExperience);
+
+        for ( i in recruiteeSkills ) {
+            const recruiterSkill = await page.$eval(recruiteeAccountDetailsInputSkillsElement, e => e.innerHTML);
+            expect(recruiterSkill.match(recruiteeSkills[i])[0])
+                .toBe(recruiteeSkills[i]);
+        }
+        
+    }, 20000);
 
     afterAll(() => {
         if ( process.env.PERSISTANT_BROWSER_TESTS.toLowerCase() != 'true' ) {
