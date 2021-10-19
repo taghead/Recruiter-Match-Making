@@ -2,19 +2,20 @@
   "name": "group-01-match-making-system-cosc2408-",
   "version": "1.0.0",
   "description": " Group-01-Match-Making-System-COSC2408-",
-  "main": "firebase emulators:start",
+  "main": "firebase emulators:start --ui",
   "directories": {
     "doc": "docs"
   },
   "scripts": {
     "start": "firebase emulators:start",
+    "poststart": "npm run posttest",
     "deploy": "firebase deploy",
     "test": "run-script-os",
-    "test:windows": "firebase emulators:exec \"jest --forceExit --detectOpenHandles\" | findstr /v /R \"\\<hosting \\<firestore \\<auth \\<hub \\<emulators \\<functions\"",
-    "test:nix": "firebase emulators:exec \"jest --forceExit --detectOpenHandles\" | grep -v \"hosting*\\|firestore*\\|auth\\|hub\\|emulators\\|functions\"",
+    "test:windows": "firebase emulators:exec \"jest --detectOpenHandles\" | findstr /v /R \"\\<hosting \\<firestore \\<auth \\<hub \\<emulators \\<functions\"",
+    "test:nix": "firebase emulators:exec \"jest --detectOpenHandles\" | grep -v \"hosting*\\|firestore*\\|auth\\|hub\\|emulators\\|functions\"",
     "posttest": "run-script-os",
-    "posttest:windows": "kill-port -s 9099 5001 8080 5000 4400 > nul 2>&1",
-    "posttest:nix": "kill-port -s 9099 5001 8080 5000 4400 > /dev/null 2>&1",
+    "posttest:windows": "kill-port -s 9099 5001 8080 5000 4400 4000> nul 2>&1",
+    "posttest:nix": "kill-port -s 9099 5001 8080 5000 4400 4000> /dev/null 2>&1",
     "login": "firebase login"
   },
   "repository": {
@@ -38,5 +39,7 @@
     "run-script-os": "^1.1.6",
     "chrome": "^0.1.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "dotenv": "^10.0.0"
+  }
 }
