@@ -86,7 +86,7 @@
               <th> Job Skills: </th><td>
                 <!-- Customizable input  -->
                 <div class="container chips chips-autocomplete" id="skills">
-                  <input class="input">
+                  <input class="input" id="skills-input">
                 </div>
               </td>
             </tr>
@@ -167,7 +167,7 @@
               <tr>
                 <th> Email: </th><td>
                   <div class="input-field"> <!-- USER.EMAIL -->
-                    <input disabled id="user-email" type="email" value="" required>
+                    <input readonly id="user-email" type="email" value="" required>
                   </div>
                 </td>
               </tr>
@@ -186,7 +186,7 @@
                 </td>
               </tr>
             </table><br />
-            <button class="btn teal lighten-1 z-depth-0 waves-effect waves-light right"> Update </button><br />
+            <button id="user-update-btn" class="btn teal lighten-1 z-depth-0 waves-effect waves-light right"> Update </button><br />
           </form>
         </div>
       </div>

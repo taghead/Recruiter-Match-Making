@@ -1,11 +1,11 @@
 var firebaseConfig = {
-apiKey: "AIzaSyAUYfyiQEAm34NjF27EspaPfcLm5Gq4jBU",
-authDomain: "group-01-match-making-cosc2408.firebaseapp.com",
-projectId: "group-01-match-making-cosc2408",
-storageBucket: "group-01-match-making-cosc2408.appspot.com",
-messagingSenderId: "784245292062",
-appId: "1:784245292062:web:1595179e05c02b90c3020f",
-measurementId: "G-63R4C1NDKD"
+  apiKey: "NjF27EspaPfcLm5Gq4jBUAIzaSyAUYfyiQEAm34",
+  authDomain: "recruitermatchmaking.firebaseapp.com",
+  projectId: "recruitermatchmaking",
+  storageBucket: "recruitermatchmaking.appspot.com",
+  messagingSenderId: "7206284245292064529",
+  appId: "1:7422:8web:159517930e05c02b90c20f",
+  measurementId: "G-64C1ND3RKD"
 };
 firebase.initializeApp(firebaseConfig);
 if (location.hostname === "localhost") {
