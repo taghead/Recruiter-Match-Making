@@ -1,10 +1,9 @@
-version: "2"
+version: "3.0"
 
 services:
   recruiter-match-making:
     build: .
     image: recruiter-match-making
     ports:
-      - 5000:5000/udp
       - 5000:5000/tcp
     restart: unless-stopped
