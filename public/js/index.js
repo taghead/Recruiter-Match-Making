@@ -1,3 +1,4 @@
+// Firebase config details
 var firebaseConfig = {
   apiKey: "NjF27EspaPfcLm5Gq4jBUAIzaSyAUYfyiQEAm34",
   authDomain: "recruitermatchmaking.firebaseapp.com",
@@ -8,6 +9,8 @@ var firebaseConfig = {
   measurementId: "G-64C1ND3RKD"
 };
 firebase.initializeApp(firebaseConfig);
+
+// Checks if the web app is being hosted locally (for testing)
 if (location.hostname === "localhost") {
   firebase.auth().useEmulator("http://localhost:9099");
   firebase.firestore().useEmulator("localhost", 8080);
@@ -23,11 +26,11 @@ document.addEventListener('DOMContentLoaded', function() { // Materialize Compon
   var items = document.querySelectorAll('.collapsible'); // Declare Collapsible
   M.Collapsible.init(items); // Initialize collapsible
 
-  var parrs = document.querySelectorAll('.parallax');
-  M.Parallax.init(parrs);
+  var parrs = document.querySelectorAll('.parallax'); // Declare parallax
+  M.Parallax.init(parrs); // Initialize parallax
 
-  var chips = document.querySelectorAll('.chips');
-  M.Chips.init(chips, {
+  var chips = document.querySelectorAll('.chips'); // Declare chips
+  M.Chips.init(chips, { // Initialize chips
     autocompleteOptions: {
       data: skills,
       limit: Infinity,

@@ -55,6 +55,7 @@ function toggleSignIn() {
       // Handle Errors here.
       var errorCode = error.code;
       var errorMessage = error.message;
+      // If error code matches 
       if (errorCode === 'auth/wrong-password') {
         alert('Wrong password.');
       } 
@@ -73,11 +74,12 @@ function handleSignUp(){
   var email = document.getElementById('email').value;
   var password = document.getElementById('password').value;
   var role = document.getElementById('role').value;
-  //Input validation
+  // Input validation
   if (email.length < 4) {
     alert('Please enter an email address.');
     return;
   }
+  // Input validation 
   if (password.length < 4) {
     alert('Please enter a password.');
     return;
@@ -101,6 +103,7 @@ function handleSignUp(){
     // Handle Errors here.
     var errorCode = error.code;
     var errorMessage = error.message;
+    // If error code matches
     if (errorCode == 'auth/weak-password') {
       alert('The password is too weak.');
     } 
@@ -151,17 +154,22 @@ function initApp() {
     document.getElementById('login').disabled = false;
   });
 
+  // Listens for events 
   if (document.getElementById('login') != null){
+    // Listens for login event
     document.getElementById('login').addEventListener('click', toggleSignIn, false);
   }
   if (document.getElementById('sign-up') != null){
+    // Listens for sign up event
     document.getElementById('sign-up').addEventListener('click', handleSignUp, false);
   }
   if (document.getElementById('logout') != null){
+    // Listens for logout event
     document.getElementById('logout').addEventListener('click', toggleSignIn, false);
   }
 }
 
+// Calls functions on load
 window.onload = function () {
   initApp();
 };
